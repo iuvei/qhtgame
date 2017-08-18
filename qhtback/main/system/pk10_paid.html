@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/system/pk10_paid.js"></script>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="left">北京PK10赔率/下注设置</h3>
+	</div>
+
+	<div class="paidtr"style="margin-right: 10px;" >
+		<input type="hidden" id="edit_id"  />
+		<table id = "mydb" >
+			<tr class=""  bgcolor=#DCDCDC><td colspan="4" align=center><h4>赔率设置</h4></td></tr>
+			<!-- id n_number n_big n_small n_single n_double n_dragon n_tiger s_big s_small s_single s_double
+//				s_number_341819 s_number_561617 s_number_781415 s_number_9101213 s_number_11
+//			
+			-->
+			<tr>
+					<td>特码 <input type="number"id="edit_n_number" value="0.00"></input></td>
+					<td>大 <input type="number"id="edit_n_big" value="0.00"></td>
+					<td>小 <input type="number"id="edit_n_small" value="0.00"></td>
+					<td>单 <input type="number"id="edit_n_single" value="0.00"></td>
+			</tr>
+			<tr>
+					<td>双 <input type="number"id="edit_n_double" value="0.00"></td>
+					<td>龙 <input type="number"id="edit_n_dragon" value="0.00"></td>
+					<td>虎 <input type="number"id="edit_n_tiger" value="0.00"></td>
+					<td>和大 <input type="number"id="edit_s_big" value="0.00"></td>
+			</tr>
+			<tr>
+					<td>和小 <input type="number"id="edit_s_small" value="0.00"></td>
+					<td>和单 <input type="number"id="edit_s_single" value="0.00"></td>
+					<td>和双 <input type="number"id="edit_s_double" value="0.00"></td>
+					<td></td>
+			</tr>
+			<tr>
+					<td>341819 <input type="number"id="edit_s_number_341819" value="0.00"></td>
+					<td>561617 <input type="number"id="edit_s_number_561617" value="0.00"></td>
+					<td colspan="2">781415 <input type="number"id="edit_s_number_781415" value="0.00"></td>
+			</tr>
+			<tr>
+					<td colspan="2">9101213 <input type="number"id="edit_s_number_9101213" value="0.00"></td>
+					<td colspan="2">11 <input type="number"id="edit_s_number_11" value="0.00"></td>
+			</tr>
+			<tr class=""><td colspan="4" align=center><input type="button" value="提交设置" onclick="editInfo()" /></td></tr>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+<div class="paidtr"style="margin-right: 10px;" >
+	<input type="hidden" id="edit_ID"  />
+		<table id = "" >
+			<tr class=""  bgcolor=#DCDCDC><td colspan="4" align=center><h4>下注设置</h4></td></tr>
+				
+			<tr>
+					<td colspan="2">大小单注最低 <input type="number"id="edit_big_small_low" value="0.00"></td>
+					<td colspan="2">大小单注最高 <input type="number"id="edit_big_small_high" value="0.00"></td>
+			</tr>
+			<tr>
+					<td colspan="2">单双单注最低 <input type="number"id="edit_single_double_low" value="0.00"></td>
+					<td colspan="2">单双单注最高 <input type="number"id="edit_single_double_high" value="0.00"></td>
+			</tr>
+			<tr>
+					<td colspan="2">龙虎单注最低 <input type="number"id="edit_dragon_tiger_low" value="0.00"></td>
+					<td colspan="2">龙虎单注最高 <input type="number"id="edit_dragon_tiger_high" value="0.00"></td>
+			</tr>
+			<tr>
+					<td colspan="2">特码单注最低 <input type="number"id="edit_n_number_low" value="0.00"></td>
+					<td colspan="2">特码单注最高 <input type="number"id="edit_n_number_high" value="0.00"></td>
+			</tr>
+			<tr>
+					<td colspan="2">和值单注最低 <input type="number"id="edit_s_number_low" value="0.00"></td>
+					<td colspan="2">和值单注最高 <input type="number"id="edit_s_number_high" value="0.00"></td>
+			</tr>
+			
+			<tr class=""><td colspan="4" align=center><input type="button" value="提交设置" onclick="editBet()" /></td></tr>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+	
+	
+	
+</body>
+</html>

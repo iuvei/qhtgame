@@ -1,0 +1,391 @@
+	url中的  "---" 目前用 "119.23.125.241:8080/qhtgame"替换
+	
+	
+	/*
+	 * 注册
+	 * http://---/player/register.do
+	 * request: {
+	 * 		"username":"",
+	 * 		"nickname":"",
+	 * 		"password":"",
+	 * 		"status":1,
+	 * 		"qq":"",
+	 * 		"weixin":"",
+	 * 		"telephone":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+	
+	
+	/*
+	 * 登 入
+	 * http://---/player/login.do
+	 * request: {
+	 * 		"appcode":"",
+	 * 		"username":"",
+	 * 		"password":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info": {
+	 * 				"id":1	,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"nickname":"",
+	 * 				"status":1,
+	 * 				"balance":0.00
+	 * 				"frozen_bal":0.00	冻结资金
+	 * 				"integral":0.00		积分
+	 * 				"qq":"",
+	 * 				"weixin":"",
+	 * 				"telephone":"",
+	 * 				"createtime":1490915724784,
+	 * 				"updatetime":1490915724784
+	 * 			}
+	 * }
+	 */
+	 
+	 /*
+	 * 获取IM信息
+	 * http://---/app/getiminfo.do
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info": {
+	 * 				"sdkAppId:"",
+	 *				"accountType":"",
+	 *				"userSig":"",
+	 *				"appGroupid":""
+	 *				"list":[
+	 *						{"id":"","groupID":"","custom":""}
+	 *						{"id":"","groupID":"","custom":""}
+	 *						{"id":"","groupID":"","custom":""}
+	 *					]
+	 * 			}
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/player/synaccount.do
+	 * 查询玩家账户信息
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"username":"",
+	 * 			"nickname":"",
+	 * 			"status":1,		1_有效 2_无效
+	 * 			"balance":0.00
+	 * 			"frozen_bal":0.00,
+	 * 			"integral":0.00,
+	 * 			"createtime":1490853310369
+	 * 		}
+	 * }
+	 */
+	 
+	 curl -d "type=1&amount=10" http://localhost:8080/qhtgame/finance/request.do
+	/*
+	 * http://---/finance/request.do
+	 * 玩家申请充值提现
+	 * request: {
+	 * 		"type":1,		1_充值 2_提现
+	 * 		"amount":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":
+	 * }
+	 */
+	 
+	 /*
+	 * 获取赛车配表信息
+	 * http://---/pk10/getconfig.do
+	 * request:{
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 				[1,2,3,4,5,6,7,8,9,10],
+	 * 				[1,2,3,4,5,6,7,8,9,10],
+	 * 				[1,2,3,4,5,6,7,8,9,10]
+	 * 			]
+	 * }
+	 */
+	 
+	 /*
+	 * 获取开奖信息(可定时更新)
+	 * http://---/pk10/getopen.do
+	 * request:{
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"timestamp":1490513317079,		当前时间
+	 * 			"sealplatTime":1490513317079,	离封盘时间(毫秒)
+	 * 			"nextPeriod":"",				下一期期号
+	 * 			"nextOpentime":1490513317079,	下一期开奖时间
+	 * 			"period":"",					上期期号
+	 * 			"opentime":1490513317079,		上期开奖时间
+	 * 			"opencode":[1,2,3,4,5,6,7,8,9,10]	上期开奖数据
+	 * 			}
+	 * }
+	 */
+	 
+/*
+	 * 获取某一期玩家压注记录
+	 * http://---/pk10/getbetinfo.do
+	 * request:{
+	 * 		"period":""		查询当期请传"000000"
+	 * 		"begintime":2017-04-06 17:47:21	(YYYY-MM-DD HH:mm:ss) 如果是查当前期，该字段值不用
+	 * 		"endtime":2017-04-06 17:47:21	(YYYY-MM-DD HH:mm:ss) 如果是查当前期，该字段值不用
+	 * 		"page":1
+	 * 		"count":8
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				},
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				},
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				}
+	 * 			]
+	 * }
+	 */
+	 
+	/*
+	 * 取消玩家压注记录
+	 * http://---/pk10/canclebet.do
+	 * request:{
+	 * 		"odd":""		订单号 空串表示取消全部
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""	订单号
+	 * }
+	 */
+	 
+	 
+	 	/*
+	 * http://---/record/financeselectlist.do
+	 * 查询玩家的财务记录
+	 * request: {
+	 * 		"username":""	必填,自己的用户名（登入消息返回的）
+	 * 		"type":1		0_全部 1_充值 2_提款
+	 * 		"operator":""	操作员
+	 * 		"begintime"""	起始时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"endtime"""		终止时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/record/gameselectlist.do
+	 * 查询玩家的游戏记录
+	 * request: {
+	 * 		"username":""	必填,自己的用户名（登入消息返回的）
+	 * 		"lottery_id":1	彩种编号（目前Pk10=1) 0表示 查全部
+	 * 		"period":""		期号(空串表示查全部)
+	 * 		"begintime"""	起始时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"endtime"""		终止时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"lottery_id":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"group_id":"",		群ID
+	 * 				"username":"",
+	 * 				"bet_amount":0.00,	压注金额
+	 * 				"paid_amount":0.00	赔付金额
+	 * 				"bet_time":1490853310369,
+	 * 				"paid_time":1490853310369,
+	 * 				"detail":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"lottery_id":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"group_id":"",		群ID
+	 * 				"username":"",
+	 * 				"bet_amount":0.00,	压注金额
+	 * 				"paid_amount":0.00	赔付金额
+	 * 				"bet_time":1490853310369,
+	 * 				"paid_time":1490853310369,
+	 * 				"detail":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"lottery_id":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"group_id":"",		群ID
+	 * 				"username":"",
+	 * 				"bet_amount":0.00,	压注金额
+	 * 				"paid_amount":0.00	赔付金额
+	 * 				"bet_time":1490853310369,
+	 * 				"paid_time":1490853310369,
+	 * 				"detail":"",
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	 	/*
+	 * http://---/record/pk10opencodeselectlist.do
+	 * 查询pk10开奖记录
+	 * request: {
+	 * 		"period":""		期数　空串为查全部
+	 * 		"date":""		日期  	空串为查全部（YYYY-MM-DD）
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 

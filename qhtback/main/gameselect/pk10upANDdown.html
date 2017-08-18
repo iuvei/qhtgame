@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+		<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+		<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../js/com/base.js"></script>
+		<script type="text/javascript" src="../../js/com/base_page.js"></script>
+		<script type="text/javascript" src="../../js/com/base_page_two.js"></script>
+		<script type="text/javascript" src="../../js/com/url.js"></script>
+		<script type="text/javascript" src="../../js/gameselect/pk10upADNdown.js"></script>
+		<title>page</title>
+	</head>
+
+	<body>
+		<div class="myhead">
+			<h3 align="center">PK10上下分记录</h3>
+		</div>
+
+		<div class="selectcondition">
+		</div>
+
+		<div class="mytable">
+		<table border="" cellspacing="" cellpadding="">
+			<!--<tr><th>Header</th></tr>-->
+			<tr>
+				<td align="center" valign="top">
+					<!--上分 -->
+					            <span>玩家</span>
+		                        <span><input type="text" id="select_username" maxlength="31" style="width:80px;" /></span>
+			                    <span>&nbsp;</span>
+			                    <span>状态</span>
+                                <span><select id="select_type" style="width:70px;"></select></span>
+			                    <span>&nbsp;&nbsp;</span><br />
+			                    <span>时间</span>
+			                    <span><input type="date" id="startcreatetime" min="2017-01-01" max="2030-01-01" style="width:130px;" /></span>
+			                    <span>&nbsp;-&nbsp;</span>
+			                    <span><input type="date" id="endcreatetime" min="2017-01-01" max="2030-01-01" style="width:130px;" /></span>
+
+			                    <span>&nbsp;&nbsp;</span>
+			                    <span><input type="button" value="查询" onclick="up_mySelect()" /></span>
+			                    
+					<table id="myup" style="float:none">
+						<thead>
+							<tr>
+								<th colspan="4" style="text-align:center;">上分记录表</th>
+
+							</tr>
+							<span style="position: relative;top:30px;right:0px;">总金额：<input type="text" id="select_AMOUNT" maxlength="31" value="0.00" style="width:50px;height:20px;border-style:none" /></span>
+							<tr>
+								<td>用户</td>
+								<td>金额</td>
+								<td>时间</td>
+								<td>状态</td>
+							</tr>
+				</thead>
+				</table>
+				<div class="error" id="error"></div>
+				                    <div class="mypage">
+										<span>当前</span>
+										<span id="size">0</span>
+										<span>条&nbsp;总计</span>
+										<span id="total">0</span>
+										<span>条&nbsp;&nbsp;&nbsp;</span>
+										<span><input type="button" value="首页" onclick="firstPage()" /></span>
+										<span><input type="button" value="上一页" onclick="upPage()" /></span>
+										<span><input type="button" value="下一页" onclick="downPage()" /></span>
+										<span><input type="button" value="尾页" onclick="endPage()" /></span>
+										<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+										<span><input type="button" value="跳转" onclick="changePage()" /></span><br />
+										<span>&nbsp;&nbsp;&nbsp;当前</span>
+										<span id="pageNum">0</span>
+										<span>页 &nbsp;总计</span>
+										<span id="pages">0</span>
+										<span>页</span>
+									</div>
+				</td>
+
+				<td align="center"  valign="top">
+					<!--下分-->
+					            <span>玩家</span>
+		                        <span><input type="text" id="_select_username" maxlength="31" style="width:80px;" /></span>
+			                    <span>&nbsp;</span>
+			                    <span>状态</span>
+                                <span><select id="_select_type" style="width:70px;"></select></span>
+			                    <span>&nbsp;&nbsp;</span><br />
+			                    <span>时间</span>
+			                    <span><input type="date" id="_startcreatetime" min="2017-01-01" max="2030-01-01" style="width:130px;" /></span>
+			                    <span>&nbsp;-&nbsp;</span>
+			                    <span><input type="date" id="_endcreatetime" min="2017-01-01" max="2030-01-01" style="width:130px;" /></span>
+
+			                    <span>&nbsp;&nbsp;</span>
+			                    <span><input type="button" value="查询" onclick="down_mySelect()" /></span>
+					<table id="mydown" style="float:none;">
+						<thead>
+						<tr>
+							<th colspan="4" style="text-align:center;">下分记录表</th>
+
+						</tr>
+						<span style="position: relative;top:30px;right:0px;">总金额：<input type="text" id="_select_AMOUNT" maxlength="31" value="0.00" style="width:50px;height:20px;border-style:none" /></span>
+						<tr>
+								<td>用户</td>
+								<td>金额</td>
+								<td>时间</td>
+								<td>状态</td>
+							</tr>
+						</thead>
+					</table>
+					<div class="_error" id="_error"></div>
+					                <div class="mypage">
+										<span>当前</span>
+										<span id="_size">0</span>
+										<span>条&nbsp;总计</span>
+										<span id="_total">0</span>
+										<span>条&nbsp;&nbsp;&nbsp;</span>
+										<span><input type="button" value="首页" onclick="firstPage_()" /></span>
+										<span><input type="button" value="上一页" onclick="upPage_()" /></span>
+										<span><input type="button" value="下一页" onclick="downPage_()" /></span>
+										<span><input type="button" value="尾页" onclick="endPage_()" /></span>
+										<span><input type="text" value="0" id="_change" style="width:30px;" /></span>
+										<span><input type="button" value="跳转" onclick="changePage_()" /></span><br />
+										<span>&nbsp;&nbsp;&nbsp;当前</span>
+										<span id="_pageNum">0</span>
+										<span>页 &nbsp;总计</span>
+										<span id="_pages">0</span>
+										<span>页</span>
+									</div>
+				</td>
+			</tr>
+		</table>
+
+		</div>
+		
+
+	</body>
+
+</html>

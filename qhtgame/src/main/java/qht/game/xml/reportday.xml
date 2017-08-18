@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reportday">
+
+	<resultMap type="qht.game.node.ReportNode" id="reportdayResultList">
+		<id column="id" property="id"/>
+		<result column="date" property="date"/>
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="typeid" property="typeid"/>
+		<result column="recharge_count" property="recharge_count"/>
+		<result column="recharge_amount" property="recharge_amount"/>
+		<result column="withdrawals_count" property="withdrawals_count"/>
+		<result column="withdrawals_amount" property="withdrawals_amount"/>
+		<result column="game_count" property="game_count"/>
+		<result column="bet_amount" property="bet_amount"/>
+		<result column="paid_amount" property="paid_amount"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+
+	<insert id="reportdayInsert" parameterType="map">
+		INSERT INTO 
+			`qht_report_day` (
+			  `date`,
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  `recharge_count`,
+			  `recharge_amount`,
+			  `withdrawals_count`,
+			  `withdrawals_amount`,
+			  `game_count`,
+			  `bet_amount`,
+			  `paid_amount`,
+			  `updatetime` )
+		VALUES 
+			(
+			  #{date},
+			  #{appcode},
+			  #{username},
+			  #{typeid},
+			  #{recharge_count},
+			  #{recharge_amount},
+			  #{withdrawals_count},
+			  #{withdrawals_amount},
+			  #{game_count},
+			  #{bet_amount},
+			  #{paid_amount},
+			  #{updatetime} )
+	</insert>
+ 
+ 	<select id="reportdaySelectList" resultMap="reportdayResultList">
+		SELECT
+			  a.`id`,
+			  a.`date`,
+			  a.`appcode`,
+			  a.`username`,
+			  a.`typeid`,
+			  a.`recharge_count`,
+			  a.`recharge_amount`,
+			  a.`withdrawals_count`,
+			 a. `withdrawals_amount`,
+			  a.`game_count`,
+			  a.`bet_amount`,
+			  a.`paid_amount`,
+			  b.`loginname`,
+			  a.`updatetime`
+		FROM
+			`qht_report_day` a
+			LEFT JOIN
+			`qht_player` b
+			ON
+			b.username = a.username
+		WHERE
+			1=1
+			<if test="username != null and username != ''">
+				AND a.`username` = #{username}
+			</if>
+			<if test="loginname != null and loginname != ''">
+				AND b.`loginname` = #{loginname}
+			</if>
+			<if test="begindate > 0">
+				AND a.`date` &gt;= ${begindate}
+			</if>
+			<if test="enddate > 0">
+				AND a.`date` &lt;= ${enddate}
+			</if>
+		ORDER BY a.`date` DESC
+	</select>
+	
+	<select id="reportdayCountByDay" parameterType="map" resultType="qht.game.node.ReportBetPaidByDayNode">
+		SELECT
+			SUM(`bet_amount`) AS `bet`,
+			SUM(`paid_amount`) AS `paid`
+		FROM
+			`qht_report_day`
+		WHERE
+			`date` = ${date}
+	</select>
+ 
+</mapper>

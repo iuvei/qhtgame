@@ -1,0 +1,154 @@
+---   替换成  192.168.1.109:8180/handicap
+
+
+	/*
+	 * http://---/getweb.do
+	 * 获取站点信息
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"name":"站点1",
+	 * 				"url":"",
+	 * 				"username":"",
+	 * 				"status":1		1_使用 2_停用 3_登入
+	 * 			},
+	 * 			{
+	 * 				"id":2,
+	 * 				"name":"站点2",
+	 * 				"url":"",
+	 * 				"username":"",
+	 * 				"status":1		1_使用 2_停用 3_登入
+	 * 			},
+	 * 			{
+	 * 				"id":3,
+	 * 				"name":"站点3",
+	 * 				"url":"",
+	 * 				"username":"",
+	 * 				"status":1		1_使用 2_停用 3_登入
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/editweb.do
+	 * 编辑站点信息
+	 * request: {
+	 * 				"id":1,
+	 * 				"url":"",
+	 * 				"username":"",
+	 * 				"password":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+
+/*
+	 * http://---/useweb.do
+	 * 使用或停用站点信息
+	 * request: {
+	 * 				"id":1,
+	 * 				"type":1	1_使用 2_停用
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+	 
+	/*
+	 * http://---/getcheckweb.do
+	 * 获取验证码
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/check.png
+	 * 获取验证码图片
+	  */
+	 
+	/*
+	 * http://---/loginweb.do
+	 * 登入站点
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+	
+	/*
+	 * http://---/getuserinfo.do
+	 * 获取玩家及盘口信息
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"username":"",		玩家名
+	 * 			"balance":0.00,		余额
+	 * 			"amount":0.00,		该局累计飞盘额
+	 * 			"period":"",		期号
+	 * 			"sealtime":1234,	离封盘时间
+	 * 			"opentime":1234		离开盘时间
+	 * 		}
+	 * }
+	 */
+
+	/*
+	 * http://---/selectdata.do
+	 * 获取飞盘明细
+	 * request: {
+	 * 		"type":1  	1_全部 2_未同步 3_已同步
+	 * 		"page":1,
+	 *		"count":8
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",			单号
+	 * 				"period":"",		期号
+	 * 				"runway":1,			车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,		投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00	投注金额
+	 * 			},
+	 * 			{
+	 * 				"id":2,
+	 * 				"odd":"",			单号
+	 * 				"period":"",		期号
+	 * 				"runway":"",		车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":"",		投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00	投注金额
+	 * 			},
+	 * 			{
+	 * 				"id":3,
+	 * 				"odd":"",			单号
+	 * 				"period":"",		期号
+	 * 				"runway":"",		车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":"",		投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00	投注金额
+	 * 			}
+	 * 		]
+	 * }
+	 */

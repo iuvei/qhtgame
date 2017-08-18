@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/first/customer.js"></script>
+	<title>page</title>
+
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">客服账号信息</h3>
+	</div>
+	
+	<div class="selectcondition" style="text-align: center">
+		<span><input type="text" id="select_cusid" maxlength="15" style="width:120px;font-size: 14px;"placeholder="请输入客服编号" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="text" id="select_cusnum" maxlength="45" style="width:120px;font-size: 14px;"placeholder="请输入客服账号" /></span>
+		<span>&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+<hr/>
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>客服编号</td>
+					<td>客服账号</td>
+					<td>客服密码</td>
+					<td>客服名称</td>
+					<td>创建时间</td>
+					<td>更新时间</td>
+					<td><a onclick="addShow();" href="#">操作</a></td> 
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	
+	<!-- 这是是设置时间 -->
+	<div class="modal fade" id="editCus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">更改客服密码</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>客服编号</td>
+	                		<td><input type="text" id="edit_cusid" maxlength="15" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>客服账号</td>
+	                		<td><input type="text" id="edit_cusnum" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>客服名称</td>
+	                		<td><input type="text" id="edit_cusname" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>客服密码</td>
+	                		<td><input type="text" id="edit_cuspwd" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editCus();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+<!--	
+	 这是新增彩种 
+	<div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">新增彩种</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>彩种编号</td>
+	                		<td><input type="text" id="add_id" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>彩种名称</td>
+	                		<td><input type="text" id="add_name" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>彩种简称</td>
+	                		<td><input type="text" id="add_shutname" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>间隔时间</td>
+	                		<td><input type="text" id="add_spacetime" maxlength="31" /></td>
+	                	</tr>
+						<tr>
+							<td>禁止撤单时间</td>
+							<td><input type="text" id="add_notbettime" maxlength="31" /></td>
+						</tr>
+	                	<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="15" cols="80" id="add_rule" name="add_rule"></textarea></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAdd();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	 这是编辑游戏规则
+	<div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">编辑规则</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<tr>
+	                		<td>彩种编号</td>
+	                		<td><input type="text" id="edit_lotteryid" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>彩种名称</td>
+	                		<td><input type="text" id="edit_lotteryname" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="15" cols="80" id="edit_lotteryrule" name="edit_lotteryrule"></textarea></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editInfo();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	 这是查看游戏规则
+	<div class="modal fade" id="showtoRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">查看游戏规则</h4>
+	            </div>
+	            <div class="modal-bodytwo">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<tr>
+	                		<td>彩种名称</td>
+	                		<td><input type="text" id="showto_lotteryname" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="20" cols="80" id="showto_lotteryrule" ></textarea></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	-->
+</body>
+</html>

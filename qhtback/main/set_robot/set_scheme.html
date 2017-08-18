@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/set_robot/set_scheme.js"></script>
+	<title>page</title>
+
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">机器人方案及设置</h3>
+	</div>
+	
+	<div class="selectcondition">
+		<!--<span>彩种编号</span>
+		<span><input type="text" id="select_lotteryid" maxlength="15" style="width:80px;" /></span>
+		<span>&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>-->
+	</div>
+
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>方案编号</td>
+					<td>方案名称</td>
+					<td>上粮下限</td>
+					<td>上粮信息</td>
+					<td>停止攻击<br />粮草下限</td>
+					<td>下粮上限</td>
+					<td>下粮信息</td>
+					<td>方案内容</td>
+					<td>更新时间</td>
+					<td><a onclick="addShow();" href="#">添加方案</a></td> 
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	
+		
+	<!-- 这是设置粮食方案 -->
+	<div class="modal fade" id="setTO" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">设置粮食方案</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>方案编号</td>
+	                		<td><input type="text" id="set_id" maxlength="15" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>方案名称</td>
+	                		<td><input type="text" id="set_name" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>上粮下限</td>
+	                		<td><input type="text" id="set_low_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>上粮信息</td>
+	                		<td><input type="text" id="set_sendup_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>停攻粮草</td>
+	                		<td><input type="text" id="set_stop_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>下粮上限</td>
+	                		<td><input type="text" id="set_up_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>下粮信息</td>
+	                		<td><input type="text" id="set_senddown_amount" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="setTOscheme();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这是新增粮食方案 -->
+	<div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                 <h4 class="modal-title" id="myModalLabel">新增粮食方案</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<!--<tr>
+	                		<td>方案编号</td>
+	                		<td><input type="text" id="add_id" maxlength="15" /></td>
+	                	</tr>-->
+	                	<tr>
+	                		<td>方案名称</td>
+	                		<td><input type="text" id="add_name" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>上粮下限</td>
+	                		<td><input type="text" id="add_low_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>上粮信息</td>
+	                		<td><input type="text" id="add_sendup_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>停攻粮草</td>
+	                		<td><input type="text" id="add_stop_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>下粮上限</td>
+	                		<td><input type="text" id="add_up_amount" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>下粮信息</td>
+	                		<td><input type="text" id="add_senddown_amount" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAdd();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 这是编辑游戏规则-->
+	<div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">编辑规则</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<tr>
+	                		<td>彩种编号</td>
+	                		<td><input type="text" id="edit_lotteryid" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>彩种名称</td>
+	                		<td><input type="text" id="edit_lotteryname" /></td>
+	                	</tr>
+	                	<!--<tr>
+	                		<td>游戏规则</td>
+	                		<td><input type="text" id="edit_lotteryrule" maxlength="1024" /></td>
+	                	</tr>-->
+	                	<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="15" cols="80" id="edit_lotteryrule" name="edit_lotteryrule"></textarea></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editInfo();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 这是查看方案内容-->
+	<div class="modal fade" id="showtoRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">查看方案内容</h4>
+	            </div>
+	            <div class="modal-bodytwo">
+	            	<!--<input type="hidden" id="show_id"  />
+	                <table>
+	                	<tr>
+	                		<td>序号</td>
+	                		<td><input type="text" id="showto_id" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>彩种名称</td>
+	                		<td><input type="text" id="showto_lotteryname" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="20" cols="80" id="showto_lotteryrule" ></textarea></td>
+	                	</tr>
+					</table>-->
+					<table id = "mytext">
+				
+			<thead>
+				<tr> 
+					<td>方案名：</td>
+	                <td colspan="2"><input type="text" id="show_name" maxlength="15" /></td>
+				</tr>
+				<tr>
+					<td>编号</td>
+					<td>投注内容</td>
+					<td><a onclick="addtext();" href="#">添加投注</a></td> 
+				</tr>
+			</thead>
+		</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 这是新增  t投注 -->
+	<div class="modal fade" id="addtext" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                 <h4 class="modal-title" id="myModalLabel">新增投注方案</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>投注名称</td>
+	                		<td><input type="text" id="add_sendname" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>投注内容</td>
+	                		<td><input type="text" id="add_sendtext" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAddtext();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	
+	
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/system/pk10_robot.js"></script>
+	<title>page</title>
+
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">PK10机器人设置</h3>
+	</div>
+	
+	<div class="selectcondition">
+		<span>当前在线机器人数：</span>
+		<span id = 'onlineCount'></span>
+		<span>&nbsp;&nbsp;&nbsp;</span>
+		<span>设置在线机器人数：</span>
+		<span><input type="text" id="set_robot" maxlength="6" style="width:80px;" /></span>
+		<span>&nbsp;</span>
+		<span><input type="button" value="提交" onclick="mySummit()" /></span>
+	</div>
+
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>app编号</td>
+					<td>玩家</td>
+					<td>账户余额</td>
+					<td>更新时间</td>
+					<td>机器人编号</td>
+					<td><a onclick="addShow();" href="#">新增机器人</a></td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	
+	<!-- 这是添加机器人 -->
+	<div class="modal fade" id="addPlayer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">新增机器人</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>玩家名:</td>
+	                		<td><input type="text" id="add_username" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAdd();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	
+<!-- 这里是编辑机器人 -->
+<div class="modal fade" id="editRobot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">编辑机器人</h4>
+            </div>
+            <div class="modal-body">
+                <table>
+                    <tr>
+                        <td>识别号</td>
+                        <td><input type="text" id="edit_appid" maxlength="8" /></td>
+                    </tr>
+                    <tr>
+                        <td>app编号</td>
+                        <td><input type="text" id="edit_appcode" maxlength="8" /></td>
+                    </tr>
+                    <tr>
+                        <td>玩家名</td>
+                        <td><input type="text" id="edit_username" maxlength="8" /></td>
+                    </tr>
+                    <tr>
+                        <td>账户余额</td>
+                        <td><input type="text" id="edit_balance" maxlength="16" /></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="myEdit();">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

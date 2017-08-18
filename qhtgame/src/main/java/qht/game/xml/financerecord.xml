@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="financerecord">	
+
+	<resultMap type="qht.game.node.FinanceRecord" id="financerecordResultList">
+		<id column="id" property="id"/>
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="type" property="type"/>
+		<result column="typeid" property="typeid"/>
+		<result column="amount" property="amount"/>
+		<result column="requestname" property="requestname"/>
+		<result column="oprname" property="oprname"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+	
+	<resultMap type="qht.game.node.FinanceReportNode" id="financereportResultList">
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="typeid" property="typeid"/>
+		<result column="type" property="type"/>
+		<result column="count" property="count"/>
+		<result column="sumAmount" property="sumAmount"/>
+	</resultMap>
+	
+	
+
+	<insert id="financerecordInsert" parameterType="map">
+		INSERT INTO 
+			`qht_financerecord` (
+			  `appcode`,
+			  `username`,
+			  `type`,
+			  `typeid`,
+			  `amount`,
+			  `requestname`,
+			  `oprname`,
+			  `updatetime` )
+		VALUES 	
+			(
+			  #{appcode},
+			  #{username},
+			  #{type},
+			  #{typeid},
+			  #{amount},
+			  #{requestname},
+			  #{oprname},
+			  #{updatetime} )
+	</insert>
+ 
+ 	<select id="financerecordSelectList" resultMap="financerecordResultList">
+		SELECT
+			  `id`,
+			  `appcode`,
+			  `username`,
+			  `type`,
+			  `typeid`,
+			  `amount`,
+			  `requestname`,
+			  `oprname`,
+			  `updatetime`
+		FROM
+			`qht_financerecord`
+		WHERE
+			1=1
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="type>0">
+				AND `type` = #{type}
+			</if>
+			<if test="oprname != null and oprname != ''">
+				AND `oprname` = #{oprname}
+			</if>
+			<if test="begintime > 0">
+				AND `updatetime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `updatetime` &lt;= ${endtime}
+			</if>
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="financereportSelectList" resultMap="financereportResultList">
+		SELECT
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  `type`,
+			  COUNT(`id`) AS `count`,
+			  SUM(`amount`) AS `sumAmount`
+		FROM
+			`qht_financerecord`
+		WHERE
+			`updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+		GROUP BY `appcode`,`type`,`username`,`typeid`
+	</select>
+	
+</mapper>

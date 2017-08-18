@@ -1,0 +1,57 @@
+/*组件样式*/
+table{
+    width: 100%;
+    border:1px solid #CAD3DA;
+}
+table td{
+	padding: 10px 0px;
+	text-align: center;
+	width:100px;
+	//border:1px solid #CAD3DA;
+	border:1px solid #356635;
+}
+table thead tr{
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border-bottom:1px solid #CAD3DA;
+}
+table thead td{
+	padding:0;
+	border-left:1px solid #CAD3DA;
+	background:#DFEBFB;
+}
+table tbody tr:nth-child(even){
+	background:#E7EFF9;
+}
+
+.selectcondition {
+	text-align: left;
+	font-size: 16px;
+}
+.mypage {
+	text-align: center;
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+.error {
+	text-align: center;
+	font-size: 18px;
+}
+.paidtr {
+	text-align: center;
+}
+.oDiv{
+            display: block;
+        }
+.mytable{
+	margin-right: 10px;
+}
+.table-a table{border:1px } 
+.table-a table td{border:0px;background:#FFF} 
+
+::-webkit-input-placeholder{font-size：16px!important;}
+select{
+	height:25px;
+}

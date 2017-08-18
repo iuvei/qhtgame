@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/first/first.js"></script>
+	<title>first</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">首页</h3>
+	</div>
+	
+
+	<div style="margin-right: 10px;">
+		<table class="table table-striped table-bordered" >
+			<tbody>
+				<tr>
+					<td width="300px">今日总流水：</td>
+					<td width="300px"><input type="text" id="water_today" value="0.00"/></td>
+					<td width="300px">昨日总流水：</td>
+					<td width="300px"><input type="text" id="water_yesterday" value="0.00"/></td>
+				</tr>
+				<tr>
+					<td width="300px">今日总盈亏: </td>
+					<td width="300px"><input type="text" id="profit_today" value="0.00"/></td>
+					<td width="300px">昨日总盈亏：  </td>
+					<td width="300px"><input type="text" id="profit_yesterday" value="0.00"/></td>
+				</tr>
+				<tr>
+					<td width="300px">玩家总积分: </td>
+					<td width="300px"><input type="text" id="profit_player" value="0.00" /></td>
+					<td width="300px">上期总盈亏：  </td>
+					<td width="300px"><input type="text" id="profit_update" value="0.00" /></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<hr/>
+	<div class="mytable">
+		<h4 align="center">订单受理</h4>
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>订单号</td>
+					<td>玩家编码</td>
+					<td>身份</td>
+					<td>类型</td>
+					<td>金额</td>
+					<td>请求者昵称</td>
+					<td>请求时间</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>
+
+

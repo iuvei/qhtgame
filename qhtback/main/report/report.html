@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/report/report.js"></script>
+	<title>page</title>
+
+</head>
+<body>
+	<div class="oDiv" id="show_toRuleone">
+		<!--<div class="modal fade" id="show_toRuleone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+		<h3 align="center">报表查询</h3>
+	
+	
+	<div class="selectcondition"style="text-align: center">
+		<span><input type="text" id="select_username" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入玩家编码" /></span>
+		<span>&nbsp;</span>
+		<span><input type="text" id="select_loginname" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入用户名" /></span>
+		<span>&nbsp;</span>
+		<span>时间</span>
+	    <span><input type="date" id="startcreatetime" min="2017-01-01" max="2030-01-01" style="width:170px;" /></span>
+		<span>-</span>
+		<span><input type="date" id="endcreatetime" min="2017-01-01" max="2030-01-01" style="width:170px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<!--<span><input type="datetime-local" id="startcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>-</span>
+		<span><input type="datetime-local" id="endcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>&nbsp;&nbsp;</span>-->
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+<hr/>
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>编号</td>
+					<td>下注日期</td>
+					<td>玩家编码</td>
+					<td>用户名</td>
+					<td>身份</td>
+					<td>充值金额</td>
+					<td>提现金额</td>
+					<td>投注金额</td>
+					<td>赔付金额</td>
+					<td>充值笔数</td>
+					<td>提现笔数</td>
+					<td>游戏局数</td>
+					<td>操作时间</td>
+					<td>查看详情</td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+</div>
+	
+	
+	<!-- 这是查看 细账-->
+	<div class="oDiv" id="show_toRuletwo">
+		<!--<div class="modal fade" id="show_toRuletwo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+		<h4 align="center">记录明细</h4>
+	
+	<div class="mytable">
+		<table id = "my_text">
+			<thead>
+				<tr> 
+					<td colspan="">日期：</td>
+	                <td colspan="2"><input type="text" id="show_date" maxlength="15" /></td>
+					<td colspan="">玩家编号：</td>
+	                <td colspan="2"><input type="text" id="show_username" maxlength="15" /></td>
+					<td colspan="">用户名：</td>
+	                <td colspan="3"><input type="text" id="show_loginname" maxlength="15" /></td>
+				</tr>
+				<tr> 
+					<td colspan="2">充值金额：</td>
+	                <td colspan="3"><input type="text" id="show_into" maxlength="15" /></td>
+					<td colspan="2">提现金额：</td>
+	                <td colspan="3"><input type="text" id="show_outto" maxlength="15" /></td>
+				</tr>
+				<tr>
+					<td>单号</td>
+					<td>期号</td>
+					<td>玩家</td>
+					<td>车道</td>
+					<td>投注值</td>
+					<td>投注金额</td>
+					<td>赔付金额</td>
+					<td>投注时间</td>
+					<td>赔付时间</td>
+					<td>状态</td>
+				</tr>
+			</thead>
+		</table>
+		<div class="error" id="error"></div>
+		 <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="mySelect()">返回总记录</button>
+	                <!--<input type="button" value="返回总记录" onclick="mySelect()" />-->
+	            </div>
+	</div>
+	</div>
+	<!--<div class="modal fade" id="show_toRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">查看明细</h4>
+	            </div>
+	            <div class="modal-bodytwo">
+					<table id = "my_text">
+			<thead>
+				<tr> 
+					<td colspan="">日期：</td>
+	                <td colspan="2"><input type="text" id="show_date" maxlength="15" /></td>
+					<td colspan="">玩家编号：</td>
+	                <td colspan="2"><input type="text" id="show_username" maxlength="15" /></td>
+					<td colspan="">用户名：</td>
+	                <td colspan="3"><input type="text" id="show_loginname" maxlength="15" /></td>
+				</tr>
+				<tr> 
+					<td colspan="2">充值金额：</td>
+	                <td colspan="3"><input type="text" id="show_into" maxlength="15" /></td>
+					<td colspan="2">提现金额：</td>
+	                <td colspan="3"><input type="text" id="show_outto" maxlength="15" /></td>
+				</tr>
+				<tr>
+					<td>单号</td>
+					<td>期号</td>
+					<td>玩家</td>
+					<td>车道</td>
+					<td>投注值</td>
+					<td>投注金额</td>
+					<td>赔付金额</td>
+					<td>投注时间</td>
+					<td>赔付时间</td>
+					<td>状态</td>
+				</tr>
+			</thead>
+		</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>-->
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+</body>
+</html>

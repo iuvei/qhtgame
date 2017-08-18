@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pk10symbol">	
+	<resultMap type="qht.game.node.Pk10SymbolNode" id="pk10symbolResultList">
+		<id column="id" property="id"/>
+		<result column="symbol" property="symbol"/>
+		<result column="tag" property="tag"/>
+		<result column="comment" property="comment"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+
+	<select id="pk10symbolSelectList" parameterType="map" resultMap="pk10symbolResultList">
+		SELECT
+			`id`,
+			`symbol`,
+			`tag`,
+			`comment`,
+			`updatetime`
+		FROM
+			`qht_pk10_symbol`
+	</select>
+	
+	<update id="pk10symbolUpdate" parameterType="map">
+		UPDATE
+			`qht_pk10_symbol`
+		SET
+			`tag` = #{tag},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	 
+</mapper>

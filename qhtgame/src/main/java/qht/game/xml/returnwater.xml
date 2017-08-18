@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="returnwater">
+
+<resultMap type="qht.game.node.ReturnwaterNode" id="returnwaterResultList">
+		<id column="id" property="id"/>
+		<result column="date" property="date"/>
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="typeid" property="typeid"/>
+		<result column="water_amount" property="water_amount"/>
+		<result column="profit_amount" property="profit_amount"/>
+		<result column="up_amount" property="up_amount"/>
+		<result column="down_amount" property="down_amount"/>
+		<result column="status" property="status"/>
+		<result column="return_amount" property="return_amount"/>
+		<result column="updatetime" property="updatetime"/>
+		<result column="createtime" property="createtime"/>
+	</resultMap>
+	
+	<select id="returnwaterSelectlist" resultMap="returnwaterResultList">
+		SELECT
+		  `qht_returnwater`.`id`,
+		  `qht_returnwater`.`date`,
+		  `qht_returnwater`.`appcode`,
+		  `qht_returnwater`.`username`,
+		  `qht_returnwater`.`typeid`,
+		  `qht_returnwater`.`water_amount`,
+		  `qht_returnwater`.`profit_amount`,
+		  `qht_returnwater`.`up_amount`,
+		  `qht_returnwater`.`down_amount`,
+		  `qht_returnwater`.`status`,
+		  `qht_returnwater`.`return_amount`,
+		  `qht_returnwater`.`updatetime`,
+		  `qht_returnwater`.`createtime`
+		FROM
+			`qht_returnwater`
+		RIGHT JOIN 
+			`qht_player`
+		ON 
+			`qht_returnwater`.`username`=`qht_player`.`username`
+			AND `qht_returnwater`.`typeid`=`qht_player`.`typeid`
+		WHERE
+			`qht_returnwater`.`date` = #{date}
+	</select>
+	
+	<select id="returnwaterSelectlist2" resultMap="returnwaterResultList">
+		SELECT
+		  `qht_returnwater`.`id`,
+		  `qht_returnwater`.`date`,
+		  `qht_returnwater`.`appcode`,
+		  `qht_returnwater`.`username`,
+		  `qht_returnwater`.`typeid`,
+		  `qht_returnwater`.`water_amount`,
+		  `qht_returnwater`.`profit_amount`,
+		  `qht_returnwater`.`up_amount`,
+		  `qht_returnwater`.`down_amount`,
+		  `qht_returnwater`.`status`,
+		  `qht_returnwater`.`return_amount`,
+		  `qht_returnwater`.`updatetime`,
+		  `qht_returnwater`.`createtime`
+		FROM
+			`qht_returnwater`
+		RIGHT JOIN 
+			`qht_player`
+		ON 
+			`qht_returnwater`.`username`=`qht_player`.`username`
+			AND `qht_returnwater`.`typeid`=`qht_player`.`typeid`
+		WHERE
+			`qht_returnwater`.`date` = #{date}
+			AND `qht_returnwater`.`status`=#{status}
+	</select>
+	
+		
+		<insert id="returnwaterInsert" parameterType="map">
+		INSERT INTO 
+			`qht_returnwater` (
+			  `date`,
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  `water_amount`,
+			  `profit_amount`,
+			  `up_amount`,
+			  `down_amount`,
+			  `status`,
+			  `return_amount`,
+			  `updatetime`,
+			  `createtime`)
+		VALUES 
+			(
+			  #{date},
+			  #{appcode},
+			  #{username},
+			  #{typeid},
+			  #{water_amount},
+			  #{profit_amount},
+			  #{up_amount},
+			  #{down_amount},
+			  #{status},
+			  #{return_amount},
+			  #{updatetime},
+			  #{createtime}	)
+	</insert>
+	
+	<update id="returnwaterUpdate" parameterType="map">
+		UPDATE
+			`qht_returnwater`
+		SET
+			`status` = #{status},
+			`return_amount` = #{return_amount},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	
+	
+</mapper>

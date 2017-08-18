@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pk10info">
+
+	<resultMap type="qht.game.node.Pk10InfoNode" id="pk10infoResultList">
+		<id column="id" property="id"/>
+		<result column="odd" property="odd"/>
+		<result column="period" property="period"/>
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="runway" property="runway"/>
+		<result column="bettype" property="bettype"/>
+		<result column="betamount" property="betamount"/>
+		<result column="paidamount" property="paidamount"/>
+		<result column="bettime" property="bettime"/>
+		<result column="paidtime" property="paidtime"/>
+		<result column="status" property="status"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+	
+	<select id="pk10infoSelectCurPeriod" parameterType="map" resultMap="pk10infoResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`appcode`,
+				`username`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`paidamount`,
+				`bettime`,
+				`paidtime`,
+				`status`,
+				`updatetime`
+		FROM
+			`qht_pk10_info`
+		WHERE
+			`username` = #{username}
+			AND `period` = #{period}
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="pk10infoSelectByDate" parameterType="map" resultMap="pk10infoResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`appcode`,
+				`username`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`paidamount`,
+				`bettime`,
+				`paidtime`,
+				`status`,
+				`updatetime`
+		FROM
+			`qht_pk10_info`
+		WHERE
+			`username` = #{username}
+			AND `status` != #{status}
+			AND `updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="pk10infoSelectByPeriod" parameterType="map" resultMap="pk10infoResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`appcode`,
+				`username`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`paidamount`,
+				`bettime`,
+				`paidtime`,
+				`status`,
+				`updatetime`
+		FROM
+			`qht_pk10_info`
+		WHERE
+			`username` = #{username}
+			AND `status` != #{status}
+			AND `period` = ${period}
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="pk10infoNotSettle" parameterType="map" resultMap="pk10infoResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`appcode`,
+				`username`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`paidamount`,
+				`bettime`,
+				`paidtime`,
+				`status`,
+				`updatetime`
+		FROM
+			`qht_pk10_info`
+		WHERE
+			`status` = #{status1}
+			OR `status` = #{status2}
+	</select>
+	
+	
+	
+	<select id="pk10infoStatitisByDate" parameterType="map" resultType="qht.game.node.Pk10InfoStatitisNode">
+		SELECT
+				SUM(`betamount`) AS `bet`,
+				SUM(`paidamount`) AS `paid`
+		FROM
+			`qht_pk10_info`
+		WHERE
+			`username` = #{username}
+			AND `status` = #{status}
+			AND `updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+	</select>
+
+	<insert id="pk10infoInsertOne" parameterType="map">
+		INSERT INTO 
+			`qht_pk10_info` (
+				`odd`,
+				`period`,
+				`appcode`,
+				`username`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`paidamount`,
+				`bettime`,
+				`paidtime`,
+				`status`,
+				`updatetime` )
+		VALUES 
+			(
+				#{odd},
+				#{period},
+				#{appcode},
+				#{username},
+				#{runway},
+				#{bettype},
+				#{betamount},
+				#{paidamount},
+				#{bettime},
+				#{paidtime},
+				#{status},
+				#{updatetime} )
+	</insert>
+		
+	<update id="pk10infoUpdateStatus" parameterType="map">
+		UPDATE
+			`qht_pk10_info`
+		SET
+			`status` = #{status},
+			`updatetime` = #{updatetime}
+		WHERE
+			`odd` = #{odd}
+		LIMIT 1;
+	</update>
+	
+	<update id="pk10infoUpdateSettle" parameterType="map">
+		UPDATE
+			`qht_pk10_info`
+		SET
+			`paidamount` = #{paidamount},
+			`paidtime` = #{paidtime},
+			`status` = #{status},
+			`updatetime` = #{updatetime}
+		WHERE
+			`odd` = #{odd}
+		LIMIT 1;
+	</update>
+	
+	
+</mapper>

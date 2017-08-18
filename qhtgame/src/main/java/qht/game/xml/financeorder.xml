@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="financeorder">	
+	<insert id="financeorderInsertOne" parameterType="map">
+		INSERT INTO 
+			`qht_financeorder` (
+				`odd`,
+				`username`,
+				`type`,
+				`amount`,
+				`requesttime`,
+				`requestname`,
+				`tag`,
+				`updatetime` )
+		VALUES 
+			(
+				#{odd},
+				#{username},
+				#{type},
+				#{amount},
+				#{requesttime},
+				#{requestname},
+				#{tag},
+				#{updatetime}	)
+	</insert>
+	
+	<select id="financeorderSelectOne" parameterType="map" resultType="qht.game.node.FinanceOrderNode">
+		SELECT
+				`id`,
+				`odd`,
+				`username`,
+				`type`,
+				`amount`,
+				`requesttime`,
+				`requestname`,
+				`tag`,
+				`updatetime`
+		FROM
+			`qht_financeorder`
+		WHERE
+			`id` = #{id}
+		LIMIT 1
+	</select>
+	
+	
+	<select id="financeorderSelectList"  parameterType="map" resultType="map">
+		SELECT
+			a.`id`,
+			a.`odd`,
+			a.`username`,
+			a.`type`,
+			a.`amount`,
+			a.`requesttime`,
+			a.`requestname`,
+			a.`tag`,
+			a.`updatetime`,
+			b.`nickname`,
+			b.`typeid`
+		FROM
+			`qht_financeorder` a
+			LEFT JOIN
+			`qht_player` b
+			ON
+			b.`username` = a.`username`
+		WHERE
+			a.`tag`=${tag}
+		ORDER BY `id` DESC LIMIT 8
+	</select>
+	
+	<!--统计 未处理（2）的订单数 select  count(tag) from qht_financeorder group by tag -->
+	<select id="COUNTorderSelectList"  parameterType="map" resultType="qht.game.node.CountOrderNode">
+		SELECT
+			COUNT(*) AS `num`
+		FROM
+			`qht_financeorder`
+		WHERE
+			`tag`=#{tag}
+	</select>
+	
+	<!-- zxb 20170425 查订单 按条件 -->
+	<select id="findOrderSelectList" parameterType="map" resultType="qht.game.node.FinanceOrderNode">
+		SELECT
+			  `id`,
+			`odd`,
+			`username`,
+			`type`,
+			`amount`,
+			`requesttime`,
+			`requestname`,
+			`tag`,
+			`updatetime`
+		FROM
+			`qht_financeorder`
+		WHERE
+			1=1
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="type>0">
+				AND `type` = #{type}
+			</if>
+			<if test="tag != null and tag != ''">
+				AND `tag` = #{tag}
+			</if>
+			<if test="begintime > 0">
+				AND `updatetime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `updatetime` &lt;= ${endtime}
+			</if>
+		ORDER BY `id` DESC
+	</select>
+	
+	
+	<!-- zxb 20170503 查订单 按条件  s上分,
+			SUM(`amount`) AS `AMUP`	           降序：ORDER BY `id` DESC -->
+	<select id="upOrderSelectList" parameterType="map" resultType="qht.game.node.FinanceOrderNode">
+		SELECT
+			  `id`,
+			`odd`,
+			`username`,
+			`type`,
+			`amount`,
+			`requesttime`,
+			`requestname`,
+			`tag`,
+			`updatetime`
+		FROM
+			`qht_financeorder`
+		WHERE
+			`type` = 1
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="tag != null and tag != ''">
+				AND `tag` = #{tag}
+			</if>
+			<if test="begintime > 0">
+				AND `updatetime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `updatetime` &lt;= ${endtime}
+			</if>
+	
+	</select>
+	<!-- zxb 20170503上分, -->
+	<select id="countByAMUP" parameterType="map" resultType="qht.game.node.FinanceAMUPOrderNode">
+		SELECT
+		SUM(`amount`) AS `amup`
+		FROM
+			`qht_financeorder`
+		WHERE
+		`type` = 1
+		     AND
+			`updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="tag > 0">
+				AND `tag` = #{tag}
+			</if>
+	</select>
+	
+	<!-- zxb 20170425 查订单 按条件,下分
+			SUM(`amount`) AS `AMDOWN`      降序：ORDER BY `id` DESC -->
+	<select id="downOrderSelectList" parameterType="map" resultType="qht.game.node.FinanceOrderNode">
+		SELECT
+			  `id`,
+			`odd`,
+			`username`,
+			`type`,
+			`amount`,
+			`requesttime`,
+			`requestname`,
+			`tag`,
+			`updatetime`
+		FROM
+			`qht_financeorder`
+		WHERE
+			`type` = 2
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="tag != null and tag != ''">
+				AND `tag` = #{tag}
+			</if>
+			<if test="begintime > 0">
+				AND `updatetime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `updatetime` &lt;= ${endtime}
+			</if>
+	</select>
+	
+	<!-- zxb 20170503下分, -->
+	<select id="countByAMDOWN" parameterType="map" resultType="qht.game.node.FinanceAMDOWNOrderNode">
+		SELECT
+		SUM(`amount`) AS `amdown`
+		FROM
+			`qht_financeorder`
+		WHERE
+		`type` = 2
+		     AND
+			`updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="tag > 0">
+				AND `tag` = #{tag}
+			</if>
+	</select>
+	
+	<update id="financeorderSetTag" parameterType="map">
+		UPDATE
+			`qht_financeorder`
+		SET
+			`tag` = #{tag},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	
+ 
+</mapper>

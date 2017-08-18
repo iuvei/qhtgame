@@ -1,0 +1,648 @@
+	url中的  "---" 目前用 "119.23.125.241:8080/qhtgame"替换
+	
+	
+	/*http://---/qhtgame/finance/countselect.do
+	 * 查询玩家申请的充值提现记录（后台）  条数 zxb 20170508
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,"desc":"成功","info":{"num":4}
+	 * }
+	 */
+	 
+	彩种==》APP游戏规则查看接口。
+            接口：URL  http://---/system/lotteryappselectlist.do
+            传入参数： lottery_id;
+            返回：{"code":1000,"desc":"成功","info":{"id":1,"name":"pk10","shutname":"北京赛车","spacetime":90000,"rule":"北京pk10游戏规则：…","createtime":1491012767000,"updatetime":1492676270892}}
+	                   
+	                   游戏规则内容：rule 字段。
+	          
+	          /*
+	 * http://---/system/appselectwc.do
+	 * APP微信信息 ，查询
+	 * request: {
+	 * "appcode"
+	 * }
+	 * respone: {
+	 * 		{"code":1000,
+	 "desc":"成功",
+	 "info":{"id":1,"appcode":"GS1001","agent":"stt","appname":"GS1001","appcompany":"qht",
+	               "wechat_code":"2888888888","wechat_p":"http://119.23.125.241:8080/asf-logo.png",
+	               "actiontime":1514735999000,"createtime":1491374487859,"updatetime":0}}
+	 * }
+	     //z注：APP只需要取：微信账号wechat_code      图片地址wechat_p  图片wechat_img 
+	 {"code":101,"desc":"参数错误"}
+	 */
+	 
+	/*
+	 * 注册
+	 * http://---/player/register.do
+	 * request: {
+	 * 		"username":"",
+	 * 		"nickname":"",
+	 * 		"password":"",
+	 * 		"status":1,
+	 * 		"qq":"",
+	 * 		"weixin":"",
+	 * 		"telephone":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""
+	 * }
+	 */
+	
+	
+	/*
+	 * 登 入
+	 * http://---/player/login.do
+	 * request: {
+	 * 		"appcode":"",
+	 * 		"username":"",
+	 * 		"password":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info": {
+	 * 				"id":1	,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"nickname":"",
+	 *				"typeid":1   1_真实 2_虚拟
+	 * 				"status":1,
+	 * 				"balance":0.00
+	 * 				"frozen_bal":0.00	冻结资金
+	 * 				"integral":0.00		积分
+	 * 				"qq":"",
+	 * 				"weixin":"",
+	 * 				"telephone":"",
+	 * 				"createtime":1490915724784,
+	 * 				"updatetime":1490915724784
+	 * 			}
+	 * }
+	 */
+	 
+	 /*
+	 * 获取IM信息
+	 * http://---/app/getiminfo.do
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info": {
+	 * 				"sdkAppId:"",
+	 *				"accountType":"",
+	 *				"userSig":"",
+	 *				"appGroupid":""
+	 *				"list":[
+	 *						{"id":"","groupID":"","custom":""}
+	 *						{"id":"","groupID":"","custom":""}
+	 *						{"id":"","groupID":"","custom":""}
+	 *					]
+	 * 			}
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/player/synaccount.do
+	 * 查询玩家账户信息
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"username":"",
+	 * 			"nickname":"",
+	 * 			"status":1,		1_有效 2_无效
+	 * 			"balance":0.00
+	 * 			"frozen_bal":0.00,
+	 * 			"integral":0.00,
+	 * 			"createtime":1490853310369
+	 * 		}
+	 * }
+	 */
+	 
+	 curl -d "type=1&amount=10" http://localhost:8080/qhtgame/finance/request.do
+	/*
+	 * http://---/finance/request.do
+	 * 玩家申请充值提现
+	 * request: {
+	 * 		"type":1,		1_充值 2_提现
+	 * 		"amount":""
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":
+	 * }
+	 */
+	 
+	 /*
+	 * 获取赛车配表信息
+	 * http://---/pk10/getconfig.do
+	 * request:{
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 				[1,2,3,4,5,6,7,8,9,10],
+	 * 				[1,2,3,4,5,6,7,8,9,10],
+	 * 				[1,2,3,4,5,6,7,8,9,10]
+	 * 			]
+	 * }
+	 */
+	 
+	 /*
+	 * 获取开奖信息(可定时更新)
+	 * http://---/pk10/getopen.do
+	 * request:{
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"timestamp":1490513317079,		当前时间
+	 * 			"sealplatTime":1490513317079,	离封盘时间(毫秒)
+	 * 			"nextPeriod":"",				下一期期号
+	 * 			"nextOpentime":1490513317079,	下一期开奖时间
+	 * 			"period":"",					上期期号
+	 * 			"opentime":1490513317079,		上期开奖时间
+	 * 			"opencode":[1,2,3,4,5,6,7,8,9,10]	上期开奖数据
+	 * 			}
+	 * }
+	 */
+	 
+/*
+	 * 获取某一期玩家压注记录
+	 * http://---/pk10/getbetinfo.do
+	 * request:{
+	 * 		"period":""		查询当期请传"000000"
+	 * 		"begintime":2017-04-06 17:47:21	(YYYY-MM-DD HH:mm:ss) 如果是查当前期，该字段值不用
+	 * 		"endtime":2017-04-06 17:47:21	(YYYY-MM-DD HH:mm:ss) 如果是查当前期，该字段值不用
+	 * 		"page":1
+	 * 		"count":8
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				},
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				},
+	 * 				{
+	 * 					"id":1,	
+	 *					"odd":"",	
+	 * 					"agent":"",
+	 * 					"appcode":"",
+	 * 					"username":"",
+	 * 					"period":"",
+	 * 					"type":3,		3:压注  4:赔付 5:取消压注
+	 * 					"amount":0.00,
+	 * 					"detail":{
+	 * 						"index":1,
+	 * 						"num":[{"id":1,"money":""},{"id":2,"money":""},{"id":3,"money":""}],
+	 * 						"big":"",
+	 * 						"small":"",
+	 * 						"single":"",
+	 * 						"dou":"",
+	 * 						"dragon":"",
+	 * 						"tiger":""
+	 * 						},
+	 * 					"updatetime":1490513317079
+	 * 				}
+	 * 			]
+	 * }
+	 */
+	 
+	/*
+	 * 取消玩家压注记录
+	 * http://---/pk10/canclebet.do
+	 * request:{
+	 * 		"odd":""		订单号 空串表示取消全部
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":""	订单号
+	 * }
+	 */
+	 
+	 
+	 	/*
+	 * http://---/record/financeselectlist.do
+	 * 查询玩家的财务记录
+	 * request: {
+	 * 		"username":""	必填,自己的用户名（登入消息返回的）
+	 * 		"type":1		0_全部 1_充值 2_提款
+	 * 		"operator":""	操作员
+	 * 		"begintime"""	起始时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"endtime"""		终止时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 *				"typeid":1,		1_真实 2_虚拟
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 *				"typeid":1,		1_真实 2_虚拟
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"agent":"",
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"type":1,		1_充值 2_提现
+	 *				"typeid":1,		1_真实 2_虚拟
+	 * 				"amount":0.00
+	 * 				"requestname":"",
+	 * 				"oprname":"",
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	/*
+	 * http://---/record/gameselectlist.do
+	 * 查询玩家的游戏记录
+	 * request: {
+	 * 		"username":""	必填,自己的用户名（登入消息返回的）
+	 * 		"lottery_id":1	彩种编号（目前Pk10=1) 0表示 查全部
+	 * 		"period":""		期号(空串表示查全部)
+	 * 		"begintime"""	起始时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"endtime"""		终止时间  格式为YYYY-MM-DD HH:mm:ss
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"lotteryid":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"betamount":0.00,	压注金额
+	 * 				"paidamount":0.00	赔付金额
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"lotteryid":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"betamount":0.00,	压注金额
+	 * 				"paidamount":0.00	赔付金额
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"lotteryid":1,		彩种
+	 * 				"period":"",		期号
+	 * 				"appcode":"",
+	 * 				"username":"",
+	 * 				"betamount":0.00,	压注金额
+	 * 				"paidamount":0.00	赔付金额
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	 	/*
+	 * http://---/record/pk10opencodeselectlist.do
+	 * 查询pk10开奖记录
+	 * request: {
+	 * 		"period":""		期数　空串为查全部
+	 * 		"date":""		日期  	空串为查全部（YYYY-MM-DD）
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"period":"",
+	 * 				"opencode":"",
+	 * 				"opentime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	/*
+	 * http://---/record/getbetpaidbydate.do
+	 * 查询当日投注情况
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"bet":0.00,
+	 * 			"paid":0.00
+	 * 		}
+	 * }
+	 */
+	 
+	 /*
+	 * http://---/system/getonlinenumber.do
+	 * 获取在线人数
+	 * request: {
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":100
+	 * }
+	 */
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	/*
+	 * http://---/appinter/selectpk10betinfo.do
+	 * 玩家查询当期投注记录
+	 * request: {
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	
+	
+	/*
+	 * http://---/appinter/selectpk10betinfopast.do
+	 * 玩家查询往期投注记录（按日期）
+	 * request: {
+	 * 		"selectdate":20170422
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	
+
+	
+	/*
+	 * http://---/appinter/selectpk10betinfoperiod.do
+	 * 玩家查询往期投注记录（按期号）
+	 * request: {
+	 * 		"period":""
+	 * 		"page":1
+	 * 		"count":10
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":[
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			},
+	 * 			{
+	 * 				"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369
+	 * 				"paidtime":14908533103609
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369
+	 * 			}
+	 * 		]
+	 * }
+	 */
+	 
+	 
+	/*
+	 * http://---/appinter/statitispk10betinfodate.do
+	 * 玩家查询往期投注流水（按日期）
+	 * request: {
+	 * 		"selectdate":20170422
+	 * }
+	 * respone: {
+	 * 		"code":1000,
+	 * 		"desc":"",
+	 * 		"info":{
+	 * 			"date":20170422,
+	 * 			"bet":3.34,
+	 * 			"paid":3.34
+	 * 		}
+	 * }
+	 */

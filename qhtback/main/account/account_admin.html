@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/account/account_admin.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">管理员</h3>
+	</div>
+	
+	<div class="selectcondition">
+		<span><input type="text" id="username" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入用户名查询" /></span>
+		<span></span>
+		<span><input type="text" id="nickname" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入昵称查询" /></span>
+		<span></span>
+		<span>类型</span>
+		<span><select id="type" style="width:100px;"></select></span>
+		<span>&nbsp;</span>
+		<span>状态</span>
+		<span><select id="status" style="width:60px;"></select></span>
+		
+		<span>创建时间</span>
+		<span><input type="datetime-local" id="startcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>&nbsp;-&nbsp;</span>
+		<span><input type="datetime-local" id="endcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+	<hr/>
+	<div class="mytable" style="margin-right: 10px;">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>用户</td>
+					<td>昵称</td>
+					<td>类型</td>
+					<td>状态</td>
+					<td>创建时间</td>
+					<td><a onclick="addShow();" href="#">新增账号</a></td>
+					<!-- <td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">添加</button></td> -->
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	<!-- 这是添加账号 -->
+	<div class="modal fade" id="addAccount" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">新增账号</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>用户</td>
+	                		<td><input type="text" id="add_username" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>昵称</td>
+	                		<td><input type="text" id="add_nickname" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>密码</td>
+	                		<td><input type="password" id="add_password" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>确认密码</td>
+	                		<td><input type="password" id="add_password_again" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>类型</td>
+	                		<td><select id="add_type"></select></td>
+	                	</tr>
+	                	<tr>
+	                		<td>状态</td>
+	                		<td><select id="add_status"></select></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAdd();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这是重置密码-->
+	<div class="modal fade" id="resetPassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">重置密码</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="reset_id"  />
+	                <table>
+	                	<!-- <tr>
+	                		<td>id</td>
+	                		<td><input type="text" id="reset_id" maxlength="31" /></td>
+	                	</tr> -->
+	                	<tr>
+	                		<td>用户</td>
+	                		<td><input type="text" id="reset_username" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>昵称</td>
+	                		<td><input type="text" id="reset_nickname" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>新密码</td>
+	                		<td><input type="password" id="reset_new_password" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>确认密码</td>
+	                		<td><input type="password" id="reset_new_password_again" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="resetPassword();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这是修改昵称-->
+	<div class="modal fade" id="editNickname" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">修改昵称</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<tr>
+	                		<td>用户</td>
+	                		<td><input type="text" id="edit_username" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>原昵称</td>
+	                		<td><input type="text" id="edit_nickname" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>新昵称</td>
+	                		<td><input type="text" id="edit_new_nickname" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editNickname();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+</body>
+</html>

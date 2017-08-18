@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="player">	
+	<select id="playerSelectOne" parameterType="map" resultType="qht.game.node.PlayerNode">
+		SELECT
+			`id`,
+			`appcode`,
+			`loginname`,
+			`username`,
+			`nickname`,
+			`status`,
+			`typeid`,
+			`balance`,
+			`frozen_bal`,
+			`integral`,
+			`qq`,
+			`weixin`,
+			`telephone`,
+			`createtime`,
+			`updatetime`
+		FROM
+			`qht_player`
+		WHERE
+			`username` = #{username}
+			AND `password` = #{password}
+			AND `appcode` = #{appcode}
+		LIMIT 1
+	</select>
+	
+		<!-- zxb 20170525上分, -->
+	<select id="countByAMplayer" parameterType="map" resultType="qht.game.node.PlayerAMOrderNode">
+		SELECT
+		SUM(`balance`) AS `amup`
+		FROM
+			`qht_player`
+		WHERE
+		`typeid` = 1
+	</select>
+	
+	<select id="playerSelectOne2" parameterType="map" resultType="qht.game.node.PlayerNode">
+		SELECT
+			`id`,
+			`appcode`,
+			`loginname`,
+			`username`,
+			`nickname`,
+			`status`,
+			`typeid`,
+			`balance`,
+			`frozen_bal`,
+			`integral`,
+			`qq`,
+			`weixin`,
+			`telephone`,
+			`createtime`,
+			`updatetime`
+		FROM
+			`qht_player`
+		WHERE
+			`loginname` = #{username}
+			AND `password` = #{password}
+			AND `appcode` = #{appcode}
+		LIMIT 1
+	</select>
+	
+	<select id="playerbyloginnameSelectOne" parameterType="map" resultType="qht.game.node.PlayerNode">
+		SELECT
+			`id`,
+			`appcode`,
+			`loginname`,
+			`username`,
+			`nickname`,
+			`status`,
+			`typeid`,
+			`balance`,
+			`frozen_bal`,
+			`integral`,
+			`qq`,
+			`weixin`,
+			`telephone`,
+			`createtime`,
+			`updatetime`
+		FROM
+			`qht_player`
+		WHERE
+			`loginname` = #{loginname}
+		LIMIT 1
+	</select>
+	
+	
+	<select id="playerbytelSelectOne" parameterType="map" resultType="qht.game.node.PlayerNode">
+		SELECT
+		`id`,
+		`appcode`,
+		`loginName`,
+		`username`,
+		`nickname`,
+		`status`,
+		`balance`,
+		`frozen_bal`,
+		`integral`,
+		`qq`,
+		`weixin`,
+		`telephone`,
+		`createtime`,
+		`updatetime`
+		FROM
+		`qht_player`
+		WHERE
+		`telephone` = #{tel}
+		LIMIT 1
+	</select>
+	
+	<select id="playerbynameSelectOne" parameterType="map" resultType="qht.game.node.PlayerNode">
+		SELECT
+			`id`,
+			`appcode`,
+			`loginname`,
+			`username`,
+			`nickname`,
+			`status`,
+			`typeid`,
+			`balance`,
+			`frozen_bal`,
+			`integral`,
+			`qq`,
+			`weixin`,
+			`telephone`,
+			`createtime`,
+			`updatetime`
+		FROM
+			`qht_player`
+		WHERE
+			`username` = #{username}
+		LIMIT 1
+	</select>
+	
+	
+	<select id="playerSelectList" resultType="map">
+		SELECT
+			`id`,
+			`appcode`,
+			`loginname`,
+			`username`,
+			`nickname`,
+			`status`,
+			`typeid`,
+			`balance`,
+			`frozen_bal`,
+			`integral`,
+			`qq`,
+			`weixin`,
+			`telephone`,
+			`createtime`,
+			`updatetime`
+		FROM
+			`qht_player`
+		WHERE
+			1=1
+		<if test="username != null and username != ''">
+			AND `username` LIKE CONCAT(CONCAT('%', #{username}),'%')
+		</if>
+		<if test="nickname != null and nickname != ''">
+			AND `nickname` LIKE CONCAT(CONCAT('%', #{nickname}),'%')
+		</if>
+		<if test="status > 0">
+			AND `status` = ${status}
+		</if>
+		<if test="begintime > 0">
+			AND `createtime` &gt;= ${begintime}
+		</if>
+		<if test="endtime > 0">
+			AND `createtime` &lt;= ${endtime}
+		</if>
+		ORDER BY `id` DESC
+	</select>
+	
+	<insert id="playerInsertOne" parameterType="map">
+		INSERT INTO 
+			`qht_player` (
+				`appcode`,
+				`loginname`,
+				`username`,
+				`password`,
+				`nickname`,
+				`status`,
+				`typeid`,
+				`balance`,
+				`frozen_bal`,
+				`integral`,
+				`qq`,
+				`weixin`,
+				`telephone`,
+				`createtime`,
+				`updatetime`)
+		VALUES 
+			(
+				#{appcode},
+				#{loginname},
+				#{username},
+				#{password},
+				#{nickname},
+				#{status},
+				#{typeid},
+				#{balance},
+				#{frozen_bal},
+				#{integral},
+				#{qq},
+				#{weixin},
+				#{telephone},
+				#{createtime},
+				#{updatetime}	)
+	</insert>
+		
+	<update id="playerResetPassword" parameterType="map">
+		UPDATE
+			`qht_player`
+		SET
+			`password` = #{password},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+		<update id="playerResetPsw" parameterType="map">
+		UPDATE
+		`qht_player`
+		SET
+		`password` = #{password},
+		`updatetime` = #{updatetime}
+		WHERE
+		`loginname` = #{loginname}
+		LIMIT 1;
+	</update>
+	
+	<update id="playerSetStatus" parameterType="map">
+		UPDATE
+			`qht_player`
+		SET
+			`status` = #{status},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	<update id="playerEditInfo" parameterType="map">
+		UPDATE
+			`qht_player`
+		SET
+			`nickname` = #{nickname},
+			`qq` = #{qq},
+			`weixin` = #{weixin},
+			`telephone` = #{telephone},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	
+	<update id="playerUpdateBalance" parameterType="map">
+		UPDATE
+			`qht_player`
+		SET
+			`balance` = #{balance},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	<update id="playersettypeid" parameterType="map">
+		UPDATE
+			`qht_player`
+		SET
+			`typeid` = #{typeid},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	 
+</mapper>

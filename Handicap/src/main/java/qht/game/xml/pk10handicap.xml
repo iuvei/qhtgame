@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pk10handicap">
+
+	<resultMap type="qht.game.node.Pk10HandicapBetNode" id="pk10handicapResultList">
+		<id column="id" property="id"/>
+		<result column="odd" property="odd"/>
+		<result column="period" property="period"/>
+		<result column="runway" property="runway"/>
+		<result column="bettype" property="bettype"/>
+		<result column="betamount" property="betamount"/>
+		<result column="status" property="status"/>
+		<result column="eventuate" property="eventuate"/>
+		<result column="updatetime" property="updatetime"/>
+		<result column="createtime" property="createtime"/>
+	</resultMap>
+	
+	<select id="pk10handicapSelectList" parameterType="map" resultMap="pk10handicapResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`status`,
+				`eventuate`,
+				`updatetime`,
+				`createtime`
+		FROM
+			`qht_pk10_handicap_bet`
+		WHERE
+			`period` = #{period}
+			AND `status` = #{status}
+		ORDER BY `betamount`
+	</select>
+	
+	<select id="pk10handicapSelectList2" parameterType="map" resultMap="pk10handicapResultList">
+		SELECT
+				`id`,
+				`odd`,
+				`period`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`status`,
+				`eventuate`,
+				`updatetime`,
+				`createtime`
+		FROM
+			`qht_pk10_handicap_bet`
+		WHERE
+			`period`=#{period}
+			<if test="type == 2">
+				AND `status` = #{status}
+			</if>
+			<if test="type == 3">
+				AND `status` &lt;&gt; #{status}
+			</if>
+		ORDER BY `id` DESC
+	</select>
+	
+	<insert id="pk10handicapInsertOne" parameterType="map">
+		INSERT INTO 
+			`qht_pk10_handicap_bet` (
+				`odd`,
+				`period`,
+				`runway`,
+				`bettype`,
+				`betamount`,
+				`status`,
+				`eventuate`,
+				`updatetime`,
+				`createtime`)
+		VALUES 
+			(
+				#{odd},
+				#{period},
+				#{runway},
+				#{bettype},
+				#{betamount},
+				#{status},
+				#{eventuate},
+				#{updatetime},
+				#{createtime} )
+	</insert>
+	
+	
+	<update id="pk10handicapupdateStatus" parameterType="map">
+		UPDATE
+			`qht_pk10_handicap_bet`
+		SET
+			`status` = #{status},
+			`eventuate` = #{eventuate},
+			`updatetime` = #{updatetime}
+		WHERE
+			`odd` = #{odd}
+		LIMIT 1;
+	</update>
+	
+</mapper>

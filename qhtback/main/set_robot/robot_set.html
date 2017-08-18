@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/set_robot/robot_set.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">机器人信息</h3>
+	</div>
+	
+	<div class="selectcondition" style="text-align: center">
+		<span><input type="text" id="select_nickname" maxlength="31" style="width:180px;"placeholder="请输入机器人昵称查询" /></span>
+		<span>&nbsp;</span>
+		<span>机器人状态</span>
+		<span><select id="select_status" style="width:60px;"></select></span>
+		<span>&nbsp;</span>
+		<!--<span>时间</span>
+		<span><input type="datetime-local" id="startcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>-</span>
+		<span><input type="datetime-local" id="endcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>&nbsp;&nbsp;</span>-->
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+	<hr/>
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>编号</td>
+					<td>app码</td>
+					<td>用户名</td>
+					<td>昵称</td>
+					<td>余额</td>
+					<td>方案</td>
+					<td>状态</td>
+					<td>更新时间</td>
+					<td><a onclick="addRobot();" href="#">添加机器人</a></td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	<!-- 这是查看方案内容-->
+	<div class="modal fade" id="showtoRule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">查看方案内容</h4>
+	            </div>
+	            <div class="modal-bodytwo">
+					<table id = "mytext">
+			<thead>
+				<tr> 
+					<td>用户名：</td>
+	                <td colspan=""><input type="text" id="show_username" maxlength="15" /></td>
+					<td>昵称：</td>
+	                <td colspan="2"><input type="text" id="show_nickname" maxlength="15" /></td>
+				</tr>
+				<tr>
+					<td>方案编号</td>
+					<td>方案名称</td>
+					<td>离开平时间</td>
+					<td>概率/%</td>
+					<td><a onclick="addtext();" href="#">添加投注</a></td> 
+				</tr>
+			</thead>
+		</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这是新增  机器人 -->
+	<div class="modal fade" id="addrobot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                 <h4 class="modal-title" id="myModalLabel">新增机器人信息</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>APP编号</td>
+	                		<td><input type="text" id="add_appcode" value="GS1001" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>机器人昵称</td>
+	                		<td><input type="text" id="add_nickname" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAddrobot();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 这是新增  投注记录 -->
+	<div class="modal fade" id="_addtext" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                 <h4 class="modal-title" id="myModalLabel">新增投注记录</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>机器人用户名</td>
+	                		<td><input type="text" id="add_username" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>方案编号</td>
+	                		<td><input type="text" id="add_id" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>方案名</td>
+	                		<td><select id="add_scheme" style="width:170px;"></select></td>
+	                	</tr>
+	                	<tr>
+	                		<td>离开奖时间</td>
+	                		<td><input type="text" id="add_time" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>概率/%</td>
+	                		<td><input type="text" id="add_probabi" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAddtext();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 这是编辑机器人-->
+	<div class="modal fade" id="editInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">编辑机器人</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<!--<tr>
+	                		<td>编号</td>
+	                		<td><input type="text" id="edit_id" /></td>
+	                	</tr>-->
+	                	<tr>
+	                		<td>用户名</td>
+	                		<td><input type="text" id="edit_username" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>昵称</td>
+	                		<td><input type="text" id="edit_nickname" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>状态</td>
+	                		<td><select id="edit_status" style="width:80px;"></select></td>
+	                	</tr>
+	                	<!--<tr>
+	                		<td>游戏规则</td>
+	                		<td><textarea rows="15" cols="80" id="edit_lotteryrule" name="edit_lotteryrule"></textarea></td>
+	                	</tr>-->
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editInfo();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="css/login.css"/>
+	<script type="text/javascript" src="plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript" src="js/com/base.js"></script>
+	<script type="text/javascript" src="js/com/url.js"></script>
+	<title>登入界面</title>
+</head>
+<body>
+	<div class="reg">
+			<div class="topic"></div>
+			<div class="content">
+				<form>
+					<table>
+						<tr>
+							<td colspan="3" height="30"></td>
+						</tr>
+						<tr>
+							<td width="120px">用户名</td>
+							<td width="220px"><input type="text" id="username"/></td>
+							<td width="110px"><span id="errname"></span></td>
+						</tr>
+						<tr>
+							<td colspan="3" height="10"></td>
+						</tr>
+						<tr>
+							<td>密码</td>
+							<td><input type="password" id="password" /></td>
+							<td><span id="errpwd" class=""></span></td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" height="10"></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="button" value="提交" id="btn" onclick="myLogin();"/></td>
+						</tr>
+						
+					</table>
+				</form>
+				
+			
+			</div>
+		</div>
+</body>
+</html>

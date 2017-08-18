@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+		<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+		<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+		<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../js/com/base.js"></script>
+		<script type="text/javascript" src="../../js/com/base_page.js"></script>
+		<script type="text/javascript" src="../../js/com/url.js"></script>
+		<script type="text/javascript" src="../../js/handicap/handicapinfo.js"></script>
+		<title>page</title>
+		
+		<style> 
+           .td{width:300px;overflow:hidden} 
+           .pp{width:100px;overflow:hidden} 
+        </style> 
+        
+        <!--//验证码-->
+         <!--<script type="text/javascript">  
+         
+        function reImg(){  
+//      	var Img = "http://192.168.1.109:8180/handicap/check.png";
+            var img = document.getElementById("Img");  
+            img.src = "Img?rnd=" + Math.random();  
+        }  
+    </script>  -->
+	</head>
+
+	<body>
+		<div class="myhead">
+			<h3 align="center">盘口用户信息</h3>
+		</div>
+
+		<div class="selectcondition">
+		</div>
+
+		<div class="mytable">
+		<table border="" cellspacing="" cellpadding="">
+			<tr>
+				<td align="center" valign="top" class="td">
+					<!--信息展示 -->
+			                    
+					<table id="myone" border="0">
+						<thead>
+							<tr>
+								<th colspan="4" style="text-align:center;">日期：<input type="text" id="now_time" maxlength="31" value="--" style="width:100px;height:20px;border-style:none" /></th>
+							</tr>
+							<tr><td colspan="4"></td></tr>
+							
+							<tr>
+								<td class="pp">用户名：</td>
+								<td><input type="text" id="url_username" style="width:80px;height:30px;border-style:none" /></td>
+								<td class="pp">期号：</td>
+								<td><input type="text" id="url_period" style="width:80px;height:30px;border-style:none"/></td>
+							</tr>
+							<tr>
+								<td class="pp">余额：</td>
+								<td><input type="text" id="url_balance" style="width:80px;height:30px;border-style:none"/></td>
+								<td class="pp">飞盘额：</td>
+								<td><input type="text" id="url_amount" style="width:80px;height:30px;border-style:none"/></td>
+							</tr>
+							<tr>
+								<td class="pp">封盘时间：</td>
+								<td><input type="text" id="url_sealtime" style="width:80px;height:30px;border-style:none"/></td>
+								<td class="pp">开盘时间：</td>
+								<td><input type="text" id="url_opentime" style="width:80px;height:30px;border-style:none"/></td>
+							</tr>
+				</thead>
+				</table>
+				</td>
+
+				<td align="center"  valign="top" colspan="2">
+					<!-- 登入url -->
+					<table id="mytwo" style="float:none;">
+						<thead>
+							<tr><td>编号</td>
+								<td>服务器名</td>
+								<td>服务器地址</td>
+								<td>用户名</td>
+								<td>状态</td>
+								<td colspan="2">操作</td>
+							</tr>
+
+						</thead>
+					</table>
+				</td>
+				
+				<td align="center" valign="top" class="pp" id="cid">
+					<!--验证码 -->
+					<input type="button" onclick="mypp();" value="获取验证码" id="ckid"/><br /><br />
+					
+					<center>  
+                    <!--<img id="Img" src="http://192.168.1.114:8180/handicap/check.png" alt="验证码"  />  <br /><br />-->
+                    <img id="Img"  alt="验证码"  />  <br /><br />
+                    <!--<a href="#" onclick="mypp();">看不清，换一张</a>-->  
+                    </center>  
+                     <br /><br />
+					输入验证码：<input type="text" id="tocheck" /> <br /><br />
+					<input type="button" onclick="mylg();" value="登入" width="50" id="inid"/>
+			                    
+				</td>
+				
+			</tr>
+		</table>
+		
+		</div>
+		
+		<div class="mytable">
+		<table border="" cellspacing="" cellpadding="">
+			<h4 align="center">同步状态</h4>
+			<hr/>
+			
+		<div class="selectcondition" style="text-align: center">
+		<span>状态：</span>
+		<span><select id="select_type" style="width:100px;"></select></span>
+		<span>&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	    </div>
+	    
+			<tr>
+
+				<td align="center"  valign="top" colspan="2">
+					<!-- 登入url -->
+					<table id="mythree" style="float:none;">
+						<thead>
+							<tr>
+								<td>单号</td>
+								<td>回合</td>
+								<td>粮草</td>
+								<td colspan="2">战斗详情</td>
+								<td>状态</td>
+							</tr>
+
+						</thead>
+					</table>
+				</td>
+				
+				
+			</tr>
+		</table>
+		
+		 <div class="error" id="error"></div>
+		 
+		<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+
+		</div>
+		
+<!-- 这里是编辑-->
+	<div class="modal fade" id="seteditweb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">编辑信息</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="edit_id"  />
+	                <table>
+	                	<tr>
+	                		<td>服务器名</td>
+	                		<td><input type="text" id="edit_name" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>服务器地址</td>
+	                		<td><input type="text" id="edit_url" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>用户名</td>
+	                		<td><input type="text" id="edit_username" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>用户密码</td>
+	                		<td><input type="text" id="edit_password" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>确认密码</td>
+	                		<td><input type="text" id="edit_password_again" maxlength="31" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="seteditweb();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	</body>
+
+</html>

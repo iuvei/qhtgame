@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/record/record_finance.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">财务记录查询</h3>
+	</div>
+	
+	<div class="selectcondition" style="text-align: center">
+		<span><input type="text" id="select_username" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入玩家查询" /></span>
+		<span>&nbsp;</span>
+		<span>类型</span>
+		<span><select id="select_type" style="width:60px;"></select></span>
+		<span>&nbsp;</span>
+		<span><input type="text" id="select_oprator" maxlength="31" style="width:120px;font-size: 14px;"placeholder="请输入操作员查询" /></span>
+		<span>&nbsp;</span>
+		<span>时间</span>
+		<span><input type="datetime-local" id="startcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>-</span>
+		<span><input type="datetime-local" id="endcreatetime" min="2017-01-01T00:00:00" max="2030-01-01T00:00:00" style="width:210px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+<hr/>
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>玩家</td>
+					<td>身份</td>
+					<td>类型</td>
+					<td>金额</td>
+					<td>请求者</td>
+					<td>操作员</td>
+					<td>操作时间</td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+</body>
+</html>

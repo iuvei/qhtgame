@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pk10pointout">
+
+	<resultMap type="qht.game.node.Pk10PointoutNode" id="pk10PointoutResultList">
+		<id column="id" property="id"/>
+		<result column="lottery_id" property="lottery_id"/>
+		<result column="text_id" property="text_id"/>
+		<result column="spacetime" property="spacetime"/>
+		<result column="text" property="text"/>
+		<result column="createtime" property="createtime"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+		
+	<select id="pk10pointoutselectone" parameterType="map" resultType="qht.game.node.Pk10PointoutNode">
+		SELECT
+		  `id`,
+		  `lottery_id`,
+		  `text_id`,
+		  `spacetime`,
+		  `text`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_pk10_pointout`
+		WHERE 
+			`lottery_id`=#{lottery_id}
+			AND `text_id`=#{text_id}
+		LIMIT 1
+	</select>
+	
+	<select id="pk10pointoutselectlist" resultMap="pk10PointoutResultList">
+		SELECT
+		  `id`,
+		  `lottery_id`,
+		  `text_id`,
+		  `spacetime`,
+		  `text`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_pk10_pointout`
+		WHERE
+			1=1
+			<if test="lottery_id > 0">
+			AND `lottery_id` = #{lottery_id}
+			</if>
+		ORDER BY `lottery_id`,`text_id`
+	</select>
+	
+	<insert id="pk10pointoutinsertone" parameterType="map">
+		INSERT INTO 
+			`qht_pk10_pointout` (
+			  `lottery_id`,
+			  `text_id`,
+			  `spacetime`,
+			  `text`,
+			  `createtime`,
+			  `updatetime`)
+		VALUES 
+			(
+			  	#{lottery_id},
+			  	#{text_id},
+			  	#{spacetime},
+			  	#{text},
+			  	#{createtime},
+			  	#{updatetime} )
+	</insert>
+	
+	<delete id="pk10pointoutdeleteone" parameterType="map">
+		DELETE FROM
+			`qht_pk10_pointout`
+		WHERE 
+			`lottery_id`=#{lottery_id}
+			AND `text_id`=#{text_id}
+		LIMIT 1
+	</delete>
+	
+	
+	<update id="pk10pointoutupdateone" parameterType="map">
+		UPDATE
+			`qht_pk10_pointout`
+		SET
+			`spacetime` = #{spacetime},
+			`text`=#{text},
+			`updatetime` = #{updatetime}
+		WHERE 
+			`lottery_id`=#{lottery_id}
+			AND `text_id`=#{text_id}
+		LIMIT 1
+	</update>
+	 
+</mapper>

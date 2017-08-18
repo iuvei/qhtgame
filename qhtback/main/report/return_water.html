@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/report/return_water.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">返水情况</h3>
+	</div>
+	<hr/>
+	
+	<div class="selectcondition" style="text-align: center;">
+		
+		<span>返水处理日期：</span>
+		<span><input type="date" id="datetime" min="2017-01-01" max="2030-01-01" style="width:145px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelectTime();" /></span>
+		
+		<span>返水模式：</span>
+		<span><select id="status" style="width:200px;"></select></span>
+		
+		<!--<span>方案①：</span>
+		<span><input type="text" id="change_one" placeholder="输入金额" maxlength="31" style="width:100px;height: 30px;" /></span>
+		<span>&nbsp;-&nbsp;</span>
+		<span><input type="text" id="change_two" placeholder="输入金额" maxlength="31" style="width:100px;height: 30px;" /></span>
+		<span>&nbsp;&nbsp;比例：&nbsp;</span>
+		<span><input type="text" id="change_point" placeholder="百分之多少的比例" maxlength="31" style="width:150px;height: 30px;" /></span><br /><br />
+		<span>方案②：</span>
+		<span><input type="text" id="change_one" placeholder="输入金额" maxlength="31" style="width:100px;height: 30px;" /></span>
+		<span>&nbsp;-&nbsp;</span>
+		<span><input type="text" id="change_two" placeholder="输入金额" maxlength="31" style="width:100px;height: 30px;" /></span>
+		<span>&nbsp;&nbsp;比例：&nbsp;</span>
+		<span><input type="text" id="change_point" placeholder="百分之多少的比例" maxlength="31" style="width:150px;height: 30px;" /></span><br /><br />-->
+		<span>返水比例：&nbsp;</span>
+		<span><input type="text" id="change_point" placeholder="百分之多少的比例" maxlength="31" style="width:150px;height: 30px;" /><input type="text" value="%" disabled="true" style="width:25px;height: 30px;"/></span>
+		
+		<span><input type="button" value="立即返水" onclick="javascript:return myReturnNow();" /></span>
+		<span><input type="button" value="预计返水" onclick="myRequest();" /></span>
+		
+		<br /><br />
+	</div>
+	<!--            "id":1,
+	 *				"date":20170515,
+	 *				"username":"",
+	 *				"water_amount":0.00,
+	 *				"profit_amount":0.00,
+	 *				"up_amount":0.00,
+	 *				"down_amount":0.00,
+	 *				"status":1,		0_未返水 1_当日盈亏 2_当日流水 3_当日上分 4_当日下分
+	 *				"return_amount":0.00,-->
+	<div class="mytable">
+		<table id = "mydb">
+			<h4 align="center">日期报表</h4>
+			<thead>
+				<tr>
+					<td>编号</td>
+					<td>返水日</td>
+					<td>用户名</td>
+					<td>盈亏</td>
+					<td>流水</td>
+					<td>上分总额</td>
+					<td>下分总额</td>
+					<td>回水所得</td>
+					<td>返水类型</td>
+					<td>处理状态</td>
+					<!--<td>操作</td>-->
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+	
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	<!--//单条计算 返水-->
+	<div class="modal fade" id="return_one" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">切换身份</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<input type="hidden" id="return_id"  />
+	                <table>
+	                	<tr>
+	                		<td>返水日：</td>
+	                		<td><input type="text" id="return_date" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>返水类型：</td>
+	                		<td><input type="text" id="return_status" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>返水比例：</td>
+	                		<td><input type="text" id="return_point" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myReturnone();">提交计算</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+</body>
+</html>

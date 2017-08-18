@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/system/pk10_set.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">PK10参数设置</h3>
+	</div>
+	
+	<div class="myselect" style="margin-right: 10px;">
+	
+		<table>
+			<p style="font-weight: bold;font-size: 18px;color:#ff0000;text-align: center">备注 : 打钩的为可以投注的格式，勾选后点击提交然后更新。</p>
+			<tr>
+				<td><label><input id="type1" type="checkbox" />空格[ ]&nbsp;&nbsp;<a onclick="mySummit(1);" href="#">提交</a></label></td>
+				<td><label><input id="type2" type="checkbox" />逗号[,]&nbsp;&nbsp;<a onclick="mySummit(2);" href="#">提交</a></label></td>
+			</tr>
+			<tr>
+				<td><label><input id="type3" type="checkbox" />点号[.]&nbsp;&nbsp;<a onclick="mySummit(3);" href="#">提交</a></label></td>
+				<td><label><input id="type4" type="checkbox" />分号[;]&nbsp;&nbsp;<a onclick="mySummit(4);" href="#">提交</a></label></td>
+			</tr>
+			<tr>
+				<td><label><input id="type5" type="checkbox" />斜号[/]&nbsp;&nbsp;<a onclick="mySummit(5);" href="#">提交</a></label></td>
+				<td><label><input id="type6" type="checkbox" />大于号[&gt;]&nbsp;&nbsp;<a onclick="mySummit(6);" href="#">提交</a></label></td>
+			</tr>
+			<tr>
+				<td><label><input id="type7" type="checkbox" />小于号[&lt;]&nbsp;&nbsp;<a onclick="mySummit(7);" href="#">提交</a></label></td>
+				<td><label><input id="type8" type="checkbox" />和号[&amp;]&nbsp;&nbsp;<a onclick="mySummit(8);" href="#">提交</a></label></td>
+				
+			</tr>
+		</table>
+		
+		<h3 align="center"><button type="button" onclick="mySelect();">更新</button></h3>
+	</div>
+
+</body>
+</html>

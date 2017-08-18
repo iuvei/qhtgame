@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lottery">	
+
+	<resultMap type="qht.game.node.LotteryNode" id="lotteryResultList">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="shutname" property="shutname"/>
+		<result column="opentime" property="opentime"/>
+		<result column="spacetime" property="spacetime"/>
+		<result column="notbettime" property="notbettime"/>
+		<result column="createtime" property="createtime"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+	
+	<select id="lotterySelectList" resultMap="lotteryResultList">
+		SELECT
+		  `id`,
+		  `name`,
+		  `shutname`,
+		  `opentime`,
+		  `spacetime`,
+		  `notbettime`,
+		  `rule`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_lottery`
+		WHERE
+			1=1
+			<if test="id > 0">
+				AND `id` = #{id}
+			</if>
+	</select>
+	
+	<update id="lotterySetTime" parameterType="map">
+		UPDATE
+			`qht_lottery`
+		SET
+			`opentime` = #{opentime},
+			`spacetime` = #{spacetime},
+			`notbettime` = #{notbettime},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	<update id="lotteryeditrule" parameterType="map">
+		UPDATE
+			`qht_lottery`
+		SET
+			`rule` = #{lottery_rule},
+			`updatetime` = #{updatetime}
+		WHERE
+			`id` = #{lottery_id}
+		LIMIT 1;
+	</update>
+	
+	
+	<select id="lotterySelectOne" parameterType="map" resultType="qht.game.node.LotteryNode">
+		SELECT
+		  `id`,
+		  `name`,
+		  `shutname`,
+		  `opentime`,
+		  `spacetime`,
+		  `notbettime`,
+		  `rule`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_lottery`
+		WHERE
+			`id` = #{id}
+		LIMIT 1
+	</select>
+	
+	
+	<insert id="lotteryInsert" parameterType="map">
+		INSERT INTO 
+			`qht_lottery` (
+				`id`,
+		  `name`,
+		  `shutname`,
+		  `opentime`,
+		  `spacetime`,
+		  `notbettime`,
+		  `rule`,
+		  `createtime`,
+		  `updatetime`)
+		VALUES 
+			(
+				#{id},
+				#{name},
+				#{shutname},
+				#{opentime},
+				#{spacetime},
+				#{notbettime},
+				#{rule},
+				#{createtime},
+				#{updatetime}
+			)
+	</insert>
+	
+ 
+</mapper>

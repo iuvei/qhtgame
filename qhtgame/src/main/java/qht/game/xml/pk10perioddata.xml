@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pk10perioddata">	
+	<resultMap type="qht.game.node.Pk10PeriodDataNode" id="pk10perioddataResultList">
+		<id column="period" property="period"/>
+		<result column="opencode" property="opencode"/>
+		<result column="opentime" property="opentime"/>
+	</resultMap>
+	
+	<select id="pk10perioddataSelectOne" parameterType="map" resultType="qht.game.node.Pk10PeriodDataNode">
+		SELECT
+			`period`,
+			`opencode`,
+			`opentime`
+		FROM
+			`qht_pk10_period_data`
+		WHERE
+			`period`=${period}
+		LIMIT 1
+	</select>
+	
+	
+	<insert id="pk10perioddataInsert" parameterType="map">
+		INSERT INTO 
+			`qht_pk10_period_data` (
+				`period`,
+				`opencode`,
+				`opentime`)
+		VALUES 
+			(
+				#{period},
+				#{opencode},
+				#{opentime}	)
+	</insert>
+	
+	<select id="pk10perioddataSelectList" resultMap="pk10perioddataResultList">
+		SELECT
+				`period`,
+				`opencode`,
+				`opentime`
+		FROM
+			`qht_pk10_period_data`
+		WHERE
+			1=1
+			<if test="period != null and period != ''">
+				AND `period` = #{period}
+			</if>
+			<if test="begintime > 0">
+				AND `opentime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `opentime` &lt;= ${endtime}
+			</if>
+		ORDER BY `opentime` DESC
+	</select>
+	
+</mapper>

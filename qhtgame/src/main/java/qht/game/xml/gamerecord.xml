@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gamerecord">	
+
+	<resultMap type="qht.game.node.GameRecord" id="gamerecordResultList">
+		<id column="id" property="id"/>
+		<result column="lotteryid" property="lotteryid"/>
+		<result column="period" property="period"/>
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="typeid" property="typeid"/>
+		<result column="betamount" property="betamount"/>
+		<result column="paidamount" property="paidamount"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+	
+	<resultMap type="qht.game.node.GameReportNode" id="gamereportResultList">
+		<result column="appcode" property="appcode"/>
+		<result column="username" property="username"/>
+		<result column="typeid" property="typeid"/>
+		<result column="count" property="count"/>
+		<result column="sumBet" property="sumBet"/>
+		<result column="sumPaid" property="sumPaid"/>
+	</resultMap>
+	
+	
+	<insert id="gamerecordInsert" parameterType="map">
+		INSERT INTO 
+			`qht_gamerecord` (
+			  `lotteryid`,
+			  `period`,
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  `betamount`,
+			  `paidamount`,
+			  `updatetime` )
+		VALUES 
+			(
+			  #{lotteryid},
+			  #{period},
+			  #{appcode},
+			  #{username},
+			  #{typeid},
+			  #{betamount},
+			  #{paidamount},
+			  #{updatetime} )
+	</insert>
+ 
+ 	<!-- zxb 20170526  上期盈亏, -->
+	<select id="playerbetSelectOne" parameterType="map" resultType="qht.game.node.GameRecordPlayer">
+		SELECT
+		SUM(`betamount`) AS `bet_all`,
+		SUM(`paidamount`) AS `paid_all`
+		FROM
+			`qht_gamerecord`
+		WHERE
+		`period` = #{period}
+		AND
+		`typeid` =1
+	</select>
+	
+ 	<!-- zxb 20170526  上期盈亏, -->
+	<!-- <select id="playerpaidSelectOne" parameterType="map" resultType="qht.game.node.GameRecordPlayer">
+		SELECT
+		SUM(`paidamount`) AS `paid_all`
+		FROM
+			`qht_gamerecord`
+		WHERE
+		`period` = #{period}
+	</select> -->
+	
+ 	<select id="gamerecordSelectList" resultMap="gamerecordResultList">
+		SELECT
+			  `id`,
+			  `lotteryid`,
+			  `period`,
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  `betamount`,
+			  `paidamount`,
+			  `updatetime`
+		FROM
+			`qht_gamerecord`
+		WHERE
+			1=1
+			<if test="username != null and username != ''">
+				AND `username` = #{username}
+			</if>
+			<if test="lotteryid>0">
+				AND `lotteryid` = #{lotteryid}
+			</if>
+			<if test="period != null and period != ''">
+				AND `period` = #{period}
+			</if>
+			<if test="begintime > 0">
+				AND `updatetime` &gt;= ${begintime}
+			</if>
+			<if test="endtime > 0">
+				AND `updatetime` &lt;= ${endtime}
+			</if>
+		ORDER BY `id` DESC
+	</select>
+	
+	<select id="gamereportSelectList" resultMap="gamereportResultList">
+		SELECT
+			  `appcode`,
+			  `username`,
+			  `typeid`,
+			  COUNT(`id`) AS `count`,
+			  SUM(`betamount`) AS `sumBet`,
+			  SUM(`paidamount`) AS `sumPaid`
+		FROM
+			`qht_gamerecord`
+		WHERE
+			`updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+		GROUP BY `appcode`,`username`,`typeid`
+	</select>
+	
+	
+	<select id="gamerecordCountByTime" parameterType="map" resultType="qht.game.node.ReportBetPaidByDayNode">
+		SELECT
+			SUM(`betamount`) AS `bet`,
+			SUM(`paidamount`) AS `paid`
+		FROM
+			`qht_gamerecord`
+		WHERE
+			`updatetime` &gt;= ${begintime}
+			AND `updatetime` &lt;= ${endtime}
+	</select>
+ 
+</mapper>

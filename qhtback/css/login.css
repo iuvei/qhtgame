@@ -1,0 +1,48 @@
+body{
+	font-family: "宋体", Arial, Helvetica, sans-serif; 
+	color:#333333;
+	font-size:12px;
+	background:url(../img/bg.jpg) repeat-x #E2E2E2;
+}
+
+.reg{
+	width:450px;
+	height:auto;
+	margin:0 auto;
+	padding-top:100px;
+}
+
+.show{
+	width:850px;
+	height:auto;
+	margin:0 auto;
+	padding-top:100px;
+	font-size:18px;
+}
+
+.topic{
+	background:url(../img/denj_top.jpg);
+	width:450px;
+	height:54px;
+}
+
+.content{
+	border:1px solid #DBDBDB;
+	color:#003976;
+	background:#F9F9F9;
+	text-align:center
+}
+
+.btn{
+	
+	color:#FFFFFF;
+	background:url(../img/bot.jpg);
+	width:58px;
+	height:27px;
+	border:0;
+}
+
+
+.error {
+	color: red;
+}

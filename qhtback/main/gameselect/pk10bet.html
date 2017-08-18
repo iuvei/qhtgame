@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/gameselect/pk10betfor.js"></script>
+	<title>page</title>
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">个人报表查询</h3>
+	</div>
+	
+	
+	<div class="selectcondition" >
+		<span>当前期查询：</span>
+		<span><input type="text" id="username" placeholder="请输入玩家名" maxlength="31" style="width:80px;height: 30px;font-size: 12px;" /></span>
+		 <span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelectCur();" /></span>
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		
+		<span>期号查询：</span>
+		<span><input type="text" id="usernamePer" placeholder="请输入玩家名" maxlength="31" style="width:80px;height: 30px;font-size: 12px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="text" id="period" placeholder="请输入期号" maxlength="6" style="width:80px;height: 30px;font-size: 12px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelectPer();" /></span>
+		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		
+		<span>日期查询：</span>
+		<span><input type="text" id="usernameTime" placeholder="请输入玩家名" maxlength="31" style="width:80px;height: 30px;font-size: 12px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="date" id="updatetime" min="2017-01-01" max="2030-01-01" style="width:160px;" /></span>
+		<span>&nbsp;&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelectTime();" /></span>
+		
+		<hr/>
+	</div>
+	<!--"id":1,
+	 * 				"odd":"",					单号
+	 * 				"period":"",				期号
+	 * 				"appcode":"",				app编号
+	 * 				"username":"",				玩家
+	 * 				"runway":"",				车道(1~10表示冠军道~第10道 11表示冠亚和)
+	 * 				"bettype":1,				投注值(大/20 小/21 单/22 双/23 龙/24 虎/25 1~19中的一个)
+	 * 				"betamount":0.00			投注金额
+	 * 				"paidamount":0.00,			赔付金额
+	 * 				"bettime":1490853310369           投注时间
+	 * 				"paidtime":14908533103609      赔付时间
+	 * 				"status":1					1:投注 2：结算 3：取消
+	 * 				"updatetime":1490853310369-->
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>单号</td>
+					<td>期号</td>
+					<td>玩家</td>
+					<td>车道</td>
+					<td>投注值</td>
+					<td>投注金额</td>
+					<td>赔付金额</td>
+					<td>投注时间</td>
+					<td>赔付时间</td>
+					<td>状态</td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+	
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+</body>
+</html>

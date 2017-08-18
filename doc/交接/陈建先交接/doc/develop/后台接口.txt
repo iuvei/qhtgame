@@ -1,0 +1,529 @@
+		后台消息定义
+
+后台消息采用http协议，json格式（请求与返回都采用json格式），网页端与服务端的交互只是内容，页面控制由网页端自行控制
+
+001.	登入
+	Request:	
+	{
+		“username”:””,	登入名
+		“password”:””	登入密码
+	}
+	Respone:
+	{
+		“code”:200,	返回码（参见下面错误码说明表）
+		“info”: {
+							“sessionid”:””,	会话
+							“username”:””,		用户名
+							”nickname”:””,		昵称
+							“type”:””,				类型（super_超级账户 agent_代理账户 app_APP账户）
+							”status”:””,			状态（1_有效 2_禁用）
+							"jurisdiction":"[1,2,3,...]"	权限模块
+						}
+	}
+	
+002.	登出
+	Request:	
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:””
+	}
+	
+101.	请求银行信息
+	Request:	
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"logo":"","name":"","branch":"","status":1},
+							{"id":1,"logo":"","name":"","branch":"","status":1},
+							...
+						]
+	}
+	
+102.	添加银行信息
+	Request:	
+	{
+		“sessionid”:””,
+		"logo":"",
+		"name":"",
+		"branch":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"logo":"","name":"","branch":"","status":1}
+	}
+
+103.	修改银行信息
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1,
+		"logo":"",
+		"name":"",
+		"branch":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"logo":"","name":"","branch":"","status":1}
+	}
+
+104.	禁用银行信息
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1,
+		"status":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"logo":"","name":"","branch":"","status":1}
+	}
+
+111.	请求彩种信息
+	Request:	
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"name":"","shutname":"","bettime":1,"status":1},
+							{"id":1,"name":"","shutname":"","bettime":1,"status":1},
+							...
+						]
+	}
+
+112.	添加彩种信息
+	Request:	
+	{
+		“sessionid”:””,
+		"name":"",
+		"shutname":"",
+		"bettime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"name":"","shutname":"","bettime":1,"status":1}
+	}
+
+113.	彩种的开启/关闭
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1,
+		"shutname":"",
+		"bettime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"name":"","shutname":"","bettime":1,"status":1}
+	}
+
+121.	请求北京赛车pk10赔率表
+	Request:	
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"number":"","bigsmall":"","singledouble":"","dragontiger":"","topasiabig":"","topasiasmall":"","topasiasingle":"","topasiadouble":""},
+							{"id":1,"number":"","bigsmall":"","singledouble":"","dragontiger":"","topasiabig":"","topasiasmall":"","topasiasingle":"","topasiadouble":""},
+							...
+						]
+	}
+	
+122.	添加北京赛车pk10赔率
+	Request:	
+	{
+		“sessionid”:””,
+		"number":"",
+		"bigsmall":"",
+		"singledouble":"",
+		"dragontiger":"",
+		"topasiabig":"",
+		"topasiasmall":"",
+		"topasiasingle":"",
+		"topasiadouble":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"number":"","bigsmall":"","singledouble":"","dragontiger":"","topasiabig":"","topasiasmall":"","topasiasingle":"","topasiadouble":""}
+	}
+
+123.	修改北京赛车pk10赔率
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1
+		"number":"",
+		"bigsmall":"",
+		"singledouble":"",
+		"dragontiger":"",
+		"topasiabig":"",
+		"topasiasmall":"",
+		"topasiasingle":"",
+		"topasiadouble":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"number":"","bigsmall":"","singledouble":"","dragontiger":"","topasiabig":"","topasiasmall":"","topasiasingle":"","topasiadouble":""}
+	}
+
+201. 请求后台管理员账号
+	Request:	
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"username":"","nickname":"","type":"","status":1,"jurisdiction":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""},
+							{"id":1,"username":"","nickname":"","type":"","status":1,"jurisdiction":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""},
+							...
+						]
+	}
+
+202. 添加后台管理员账号
+	Request:	
+	{
+		“sessionid”:””,
+		"username":"",
+		"password":"",
+		"nickname":"",
+		"type":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"":"","nickname":"","type":"","status":1,"topasiasmall":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""}
+	}
+	
+203. 修改后台管理员账号
+	Request:
+	{
+		“sessionid”:””,
+		"id":1,
+		"password":"",
+		"nickname":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","nickname":"","type":"","status":1,"topasiasmall":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""}
+	}
+	
+204. 禁用后台管理员账号
+	Request:
+	{
+		“sessionid”:””,
+		"id":1,
+		"status":1
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","nickname":"","type":"","status":1,"topasiasmall":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""}
+	}
+	
+205. 给后台管理员分配权限
+	Request:
+	{
+		“sessionid”:””,
+		"id":1,
+		"addjudge":[1,2,...],
+		"deljudge":[1,2,...]
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","password":"","nickname":"","type":"","status":1,"topasiasmall":[1,2,...],"createtime":"","updatetime":"","lastlogintime":""}
+	}
+
+211. 后台管理员操作日志查询
+	Request:
+	{
+		“sessionid”:””,
+		"operator":"",
+		"starttime":"",
+		"endtime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"operator":"","type":"","detail":"","timestamp":""},
+							{"id":1,"operator":"","type":"","detail":"","timestamp":""},
+							...
+						]
+	}
+	
+212. 后台管理员登入日志查询
+	Request:
+	{
+		“sessionid”:””,
+		"operator":"",
+		"starttime":"",
+		"endtime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"operator":"","addr":"","logintime":"","logouttime":""},
+							{"id":1,"operator":"","addr":"","logintime":"","logouttime":""},
+							...
+						]
+	}
+
+301. 请求会员账号列表
+	Request:	
+	{
+		“sessionid”:””,
+		”username":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"username":"","nickname":"","type":"","status":1,"balance":"","frozenbal":"","integral":"","totalbet":"","totalpaid":"","lastlogintime":""},
+							{"id":1,"username":"","nickname":"","type":"","status":1,"balance":"","frozenbal":"","integral":"","totalbet":"","totalpaid":"","lastlogintime":""},
+							...
+						]
+	}
+
+302. 添加会员账号
+	Request:	
+	{
+		“sessionid”:””,
+		”username":""，
+		“password":"",
+		"nickname":"",
+		"type":"",
+		"qq":"",
+		"weixin":"",
+		"telephone":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","nickname":"","type":"","status":1,"qq":"","weixin":"","telephone":"","createtime":""}
+	}
+	
+303. 修改会员账号
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1
+		“password":"",
+		"nickname":"",
+		"type":"",
+		"qq":"",
+		"weixin":"",
+		"telephone":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","nickname":"","type":"","status":1,"qq":"","weixin":"","telephone":"","createtime":""}
+	}
+
+304. 启用/禁用会员账号
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1
+		"status":1
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"username":"","nickname":"","type":"","status":1,"qq":"","weixin":"","telephone":"","createtime":""}
+	}
+	
+311. 添加会员银行账号信息
+	Request:	
+	{
+		“sessionid”:””,
+		”username":""，
+		"bankaccount":"",
+		"bankusername":"",
+		"telephone":"",
+		"bankid":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"userid":"",”username":"","bankaccount":"","bankusername":"","telephone":"","bankid":"","createtime":""}
+	}
+
+312. 修改会员银行账号信息
+	Request:	
+	{
+		“sessionid”:””,
+		"id":1
+		”username":""，
+		"bankaccount":"",
+		"bankusername":"",
+		"telephone":"",
+		"bankid":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"userid":"",”username":"","bankaccount":"","bankusername":"","telephone":"","bankid":"","createtime":""}
+	}
+	
+313. 查询会员银行账号信息
+	Request:	
+	{
+		“sessionid”:””,
+		"userid":"",
+		”username":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:	[
+							{"userid":"",”username":"","bankaccount":"","bankusername":"","telephone":"","bankid":"","createtime":""},
+							{"userid":"",”username":"","bankaccount":"","bankusername":"","telephone":"","bankid":"","createtime":""},
+							...
+						]
+	}
+
+321. 会员登入日志查询
+	Request:
+	{
+		“sessionid”:””,
+		"username":"",
+		"starttime":"",
+		"endtime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"account":"","addr":"","logintime":"","logouttime":""},
+							{"id":1,"account":"","addr":"","logintime":"","logouttime":""},
+							...
+						]
+	}
+	
+	
+	
+	
+	
+	
+401. 查询app信息列表
+	Request:
+	{
+		“sessionid”:””,
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:[
+							{"id":1,"appcode":"","agent":"","appname":"","appcompany":"","actiontime":"","createtime":""},
+							{"id":1,"appcode":"","agent":"","appname":"","appcompany":"","actiontime":"","createtime":""},
+							...
+						]
+	}
+	
+402. 添加app信息
+	Request:
+	{
+		“sessionid”:””,
+		"agent":"",
+		"appname":"",
+		"appcompany":"",
+		"actiontime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"appcode":"","agent":"","appname":"","appcompany":"","actiontime":"","createtime":""}
+	}
+
+403. 修改app信息
+	Request:
+	{
+		“sessionid”:””,
+		"id":"",
+		"agent":"",
+		"appname":"",
+		"appcompany":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"appcode":"","agent":"","appname":"","appcompany":"","actiontime":"","createtime":""}
+	}	
+
+404. app有效性设置
+	Request:
+	{
+		“sessionid”:””,
+		"id":"",
+		"actiontime":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:{"id":1,"appcode":"","agent":"","appname":"","appcompany":"","actiontime":"","createtime":""}
+	}	
+	
+501. 查询pk10开奖数据
+	Request:
+	{
+		“sessionid”:””,
+		"period":"",
+		"startdate":"",
+		"enddate":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:	[
+							{"period":"","lotterytime":"","lotterydata":"","collectiontime":""},
+							{"period":"","lotterytime":"","lotterydata":"","collectiontime":""},
+							...
+						]
+	}
+
+	
+601. 充值提现请求
+	Request:
+	{
+		“sessionid”:””,
+		"userid":"",
+		"type":"",
+		"amount":""
+	}
+	Respone:
+	{
+		“code”:200,
+		“info”:	[
+							{"id":1,"odd":"","agent","","appcode":1,"userid":"","type":"","requestamount":"","realamount":"","beforbal","","afterbal":"","operatortime":""},
+							{"id":1,"odd":"","agent","","appcode":1,"userid":"","type":"","requestamount":"","realamount":"","beforbal","","afterbal":"","operatortime":""},
+							...
+						]
+	}	
+	
+	

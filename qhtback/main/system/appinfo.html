@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="../../css/com/table.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="../../plugin/bootstrap.min.css">
+	<script type="text/javascript" src="../../plugin/jquery.min.js"></script>
+	<script type="text/javascript" src="../../plugin/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../js/com/base.js"></script>
+	<script type="text/javascript" src="../../js/com/base_page.js"></script>
+	<script type="text/javascript" src="../../js/com/url.js"></script>
+	<script type="text/javascript" src="../../js/system/appinfo.js"></script>
+	<title>page</title>
+
+</head>
+<body>
+	<div class="myhead">
+		<h3 align="center">APP信息</h3>
+	</div>
+	
+	<div class="selectcondition" style="text-align: center">
+		<span><input type="text" id="select_appcode" maxlength="31" style="width:150px;"placeholder="请输入编号查询" /></span>
+		<span>&nbsp;</span>
+		<span><input type="button" value="查询" onclick="mySelect()" /></span>
+	</div>
+<hr/>
+	<div class="mytable">
+		<table id = "mydb">
+			<thead>
+				<tr>
+					<td>app编号</td>
+					<td>代理</td>
+					<td>app名称</td>
+					<td>隶属公司</td>
+					<td>有效时间</td>
+					<td>创建时间</td>
+					<td>微信账号</td>
+					<td>图片地址</td>
+					<td>微信图片</td>
+					<td><a onclick="addShow();" href="#">新增</a></td>
+				</tr>
+			</thead>
+		</table>
+		
+		<div class="error" id="error"></div>
+	</div>
+
+	<div class="mypage">
+		<span>当前</span>
+		<span id="size">0</span>
+		<span>条&nbsp;总计</span>
+		<span id="total">0</span>
+		<span>条&nbsp;&nbsp;&nbsp;</span>
+		<span><input type="button" value="首页" onclick="firstPage()" /></span>
+		<span><input type="button" value="上一页" onclick="upPage()" /></span>
+		<span><input type="button" value="下一页" onclick="downPage()" /></span>
+		<span><input type="button" value="尾页" onclick="endPage()" /></span>
+		<span><input type="text" value="0" id="change" style="width:30px;" /></span>
+		<span><input type="button" value="跳转" onclick="changePage()" /></span>
+		<span>&nbsp;&nbsp;&nbsp;当前</span>
+		<span id="pageNum">0</span>
+		<span>页 &nbsp;总计</span>
+		<span id="pages">0</span>
+		<span>页</span>
+	</div>
+	
+	
+	<!-- 这是添加app信息 -->
+	<div class="modal fade" id="addApp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">新增APP</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>app编号</td>
+	                		<td><input type="text" id="add_appcode" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>代理</td>
+	                		<td><input type="text" id="add_agent" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>app名称</td>
+	                		<td><input type="text" id="add_name" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>隶属公司</td>
+	                		<td><input type="text" id="add_appcompany" maxlength="63" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>有效时间</td>
+	                		<td><input type="date" id="add_actiontime" min="2017-01-01" max="2030-01-01" style="width:150px;" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>微信账号</td>
+	                		<td><input type="text" id="add_wechat_code" maxlength="63" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>图片地址</td>
+	                		<td><input type="file" id="slideimg" name="slideimg" value="${data.wechat_p}"/></td>
+	                	</tr>
+	        <tr>
+				<td colspan="2">
+					<a href="#" target="_blank"><img src="#" /></a>
+					<input type="hidden" name="add_wechat_img" id="add_wechat_img" value="${data.wechat_img}"/>
+					<input type="hidden" name="add_appcode" id="add_appcode" value="${data.appcode}" />
+					<input type="hidden" name="add_wechat_p" id="add_wechat_p" value="${data.wechat_p}" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="file" id="slidePic" name="slidePic" value="${data.wechat_img}"/>
+				</td>
+			</tr>
+			
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="myAdd();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这里是设置时间 -->
+	<div class="modal fade" id="setTime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">设置APP有效时间</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>APP编号</td>
+	                		<td><input type="text" id="set_appcode" maxlength="31" /></td>
+	                	</tr>
+	                	<!--<tr>
+	                		<td>有效时间</td>
+	                		<td><input type="text" id="set_time" maxlength="31" /></td>
+	                	</tr>-->
+	                	<tr>
+	                		<td>有效时间</td>
+	                		<td><input type="date" id="set_new_time" min="2017-01-01" max="2030-01-01" style="width:150px;" /></td>
+	                	</tr>
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="setTime();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	
+	<!-- 这里是编辑微信 -->
+	<div class="modal fade" id="editWC" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	                <h4 class="modal-title" id="myModalLabel">编辑微信信息</h4>
+	            </div>
+	            <div class="modal-body">
+	                <table>
+	                	<tr>
+	                		<td>APP编号</td>
+	                		<td><input type="text" id="edit_appcode" maxlength="31" /></td>
+	                	</tr>
+	                	<tr>
+	                		<td>微信账号</td>
+	                		<td><input type="text" id="edit_wechat_code" maxlength="31" /></td>
+	                	</tr>
+	                	<!--<tr>
+	                		<td>微信账号</td>
+	                		<td><input type="text" id="editnew_wechat_code" maxlength="31" /></td>
+	                	</tr>-->
+	                	<tr>
+	                		<td>图片地址</td>
+	                		<td><input type="text" id="edit_wechat_p" maxlength="255" /></td>
+	                	</tr>
+	                	<!--<tr>
+	                		<td>图片地址</td>
+	                		<td><input type="text" id="editnew_wechat_p" maxlength="255" /></td>
+	                	</tr>-->
+					</table>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	                <button type="button" class="btn btn-primary" onclick="editWC();">提交</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PK10Paid">	
+
+	<resultMap type="qht.game.node.PK10PaidNode" id="PK10PaidResultList">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="shutname" property="shutname"/>
+		<result column="spacetime" property="spacetime"/>
+		<result column="createtime" property="createtime"/>
+		<result column="updatetime" property="updatetime"/>
+	</resultMap>
+				<!--  赔率设置 id n_number n_big n_small n_single n_double n_dragon n_tiger s_big s_small s_single s_double
+//				s_number_341819 s_number_561617 s_number_781415 s_number_9101213 s_number_11
+			-->
+	<select id="paidSelectOne" parameterType="map" resultType="qht.game.node.PK10PaidNode">
+		SELECT
+		  `id`,
+		  `n_number`,
+		  `n_big`,
+		  `n_small`,
+		  `n_single`,
+		  `n_double`,
+		  `n_dragon`,
+		  `n_tiger`,
+		  `s_big`,
+		  `s_small`,
+		  `s_single`,
+		  `s_double`,
+		  `s_number_341819`,
+		  `s_number_561617`,
+		  `s_number_781415`,
+		  `s_number_9101213`,
+		  `s_number_11`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_pk10_paid_ini`
+		WHERE
+		`id` = #{id}
+		LIMIT 1
+	</select>
+	
+	<!-- 下注设置 id big_small_low  big_small_high  single_double_low single_double_high  dragon_tiger_low dragon_tiger_high 
+	//n_number_low n_number_high s_number_low s_number_high -->
+	<select id="betSelectOne" parameterType="map" resultType="qht.game.node.PK10BetNode">
+		SELECT
+		  `id`,
+		  `big_small_low`,
+		  `big_small_high`,
+		  `single_double_low`,
+		  `single_double_high`,
+		  `dragon_tiger_low`,
+		  `dragon_tiger_high`,
+		  `n_number_low`,
+		  `n_number_high`,
+		  `s_number_low`,
+		  `s_number_high`,
+		  `allBet`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_pk10_bet_set`
+		WHERE
+		`id` = #{id}
+		LIMIT 1
+	</select>
+	
+	<select id="selectBetAll" parameterType="map" resultType="qht.game.node.PK10BetNode">
+		SELECT
+		  `id`,
+		  `big_small_low`,
+		  `big_small_high`,
+		  `single_double_low`,
+		  `single_double_high`,
+		  `dragon_tiger_low`,
+		  `dragon_tiger_high`,
+		  `n_number_low`,
+		  `n_number_high`,
+		  `s_number_low`,
+		  `s_number_high`,
+		  `allBet`,
+		  `createtime`,
+		  `updatetime`
+		FROM
+			`qht_pk10_bet_set`
+		WHERE
+		1=1
+	</select>
+	
+	<!-- 赔率设置修改 -->
+	<update id="paidEditInfo" parameterType="map">
+		UPDATE
+			`qht_pk10_paid_ini`
+		SET
+		  `n_number`=#{n_number},
+		  `n_big`=#{n_big},
+		  `n_small`=#{n_small},
+		  `n_single`=#{n_single},
+		  `n_double`=#{n_double},
+		  `n_dragon`=#{n_dragon},
+		  `n_tiger`=#{n_tiger},
+		  `s_big`=#{s_big},
+		  `s_small`=#{s_small},
+		  `s_single`=#{s_single},
+		  `s_double`=#{s_double},
+		  `s_number_341819`=#{s_number_341819},
+		  `s_number_561617`=#{s_number_561617},
+		  `s_number_781415`=#{s_number_781415},
+		  `s_number_9101213`=#{s_number_9101213},
+		  `s_number_11`=#{s_number_11},
+		  `createtime`=#{createtime},
+		  `updatetime`=#{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	<!-- 下注设置 修改 -->
+	<update id="betEditInfo" parameterType="map">
+		UPDATE
+			`qht_pk10_bet_set`
+		SET
+		  `big_small_low`=#{big_small_low},
+		  `big_small_high`=#{big_small_high},
+		  `single_double_low`=#{single_double_low},
+		  `single_double_high`=#{single_double_high},
+		  `dragon_tiger_low`=#{dragon_tiger_low},
+		  `dragon_tiger_high`=#{dragon_tiger_high},
+		  `n_number_low`=#{n_number_low},
+		  `n_number_high`=#{n_number_high},
+		  `s_number_low`=#{s_number_low},
+		  `s_number_high`=#{s_number_high},
+		  `allBet`=#{allBet},
+		  `createtime`=#{createtime},
+		  `updatetime`=#{updatetime}
+		WHERE
+			`id` = #{id}
+		LIMIT 1;
+	</update>
+	
+	
+	
+ 
+</mapper>
